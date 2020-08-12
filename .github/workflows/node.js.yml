@@ -25,6 +25,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: node index.js
-    - run: git add *
-    - run: git commit -m "update file"
-    - run: git push
+    - run: |
+          git config --global user.name 'angeal185'
+          git config --global user.email 'angeal185@users.noreply.github.com'
+          git commit -am "update"
+          git push

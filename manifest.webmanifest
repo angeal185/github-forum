@@ -1,0 +1,19 @@
+{
+  "name": "app-name",
+  "lang": "en-US",
+  "short_name": "app-short-name",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "some description",
+  "icons": [{
+    "src": "./app/img/ico/48x48.png",
+    "sizes": "48x48",
+    "type": "image/png"
+  },{
+    "src": "./app/img/ico/144x144.png",
+    "sizes": "144x144",
+    "type": "image/png"
+  }],
+  "categories": ["some-category"]
+}

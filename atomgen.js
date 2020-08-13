@@ -112,11 +112,11 @@ let utils = {
     if(obj.content.type !== '' || obj.content.data !== '' || obj.content.src !== ''){
       let data = '<content';
 
-      if(obj.content.type !== ''){
+      if(obj.content.type && obj.content.type !== ''){
         data += ' type="'+ obj.content.type +'"';
       }
 
-      if(obj.content.src !== ''){
+      if(obj.content.src && obj.content.src !== ''){
         data += ' src="'+ obj.content.src +'" />';
       } else {
         data += '>'+ obj.content.data +'</content>';
@@ -127,21 +127,21 @@ let utils = {
     }
 
     // build link
-    if(obj.link.href !== ''){
+    if(obj.link.href && obj.link.href !== ''){
       let lnk = '<link ';
-      if(obj.link.rel !== ''){
+      if(obj.link.rel && obj.link.rel !== ''){
         lnk += 'rel="'+ obj.link.rel +'" ';
       }
 
-      if(obj.link.title !== ''){
+      if(obj.link.title && obj.link.title !== ''){
         lnk += 'title="'+ obj.link.title +'" ';
       }
 
-      if(obj.link.hreflang !== ''){
+      if(obj.link.hreflang && obj.link.hreflang !== ''){
         lnk += 'hreflang="'+ obj.link.hreflang +'" ';
       }
 
-      if(obj.link.type !== ''){
+      if(obj.link.type && obj.link.type !== ''){
         lnk += 'type="'+ obj.link.type +'" ';
       }
 
@@ -152,14 +152,14 @@ let utils = {
     }
 
     // build category
-    if(obj.category.term !== ''){
+    if(obj.category.term && obj.category.term !== ''){
       let cat = '<category ';
 
-      if(obj.category.label !== ''){
+      if(obj.category.label && obj.category.label !== ''){
         cat += 'title="'+ obj.category.label +'" ';
       }
 
-      if(obj.category.scheme !== ''){
+      if(obj.category.scheme && obj.category.scheme !== ''){
         cat += 'scheme="'+ obj.category.scheme +'" ';
       }
 

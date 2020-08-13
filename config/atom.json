@@ -1,9 +1,9 @@
 {
-  "baseurl": "https://localhost:4443",
+  "baseurl": "https://angeal185.github.io/github-forum",
   "feedurl": "https://api.github.com/repos/angeal185/github-forum/issues",
   "template": {
-    "title": "example feed",
-    "subtitle": "example subtitle",
+    "title": "github-forum issues feed",
+    "subtitle": "latest github-forum issues",
     "icon": "https://example.com/icon.png",
     "logo": "https://example.com/logo.png",
     "updated": "2020-06-03T12:58:08.285Z",
@@ -13,21 +13,21 @@
     "link": {
       "type": "",
       "rel": "",
-      "title": "example link title",
-      "href": "https://example.com",
+      "title": "github-forum",
+      "href": "https://angeal185.github.io/github-forum",
       "hreflang": ""
     },
     "category": {
-      "term": "example",
+      "term": "forum",
       "label": "",
       "scheme": ""
     },
     "author": {
-      "email": "example@example.com",
-      "name": "john smith",
-      "uri": "https://example.com"
+      "email": "angeal185@users.noreply.github.com",
+      "name": "angeal185",
+      "uri": "https://github.com/angeal185"
     },
-    "contributor": ["john smith"],
+    "contributor": ["ben eaves"],
     "entries": []
   }
 }

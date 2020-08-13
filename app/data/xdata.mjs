@@ -24,8 +24,13 @@ const xdata = {
     },{
       rel: 'alternate',
       type: 'application/atom+xml',
-      title: "github-forum feed",
+      title: "github-forum issues feed",
       href: './atom/issues.atom'
+    },{
+      rel: 'alternate',
+      type: 'application/atom+xml',
+      title: "github-forum news feed",
+      href: './atom/news.atom'
     }],
     js_head:[],
     js_body:[],

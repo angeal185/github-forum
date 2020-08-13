@@ -222,7 +222,6 @@ https.get(config.feedurl, obj, function(res){
         title: ttl[0],
         updated: str[i].updated_at,
         id: "urn:uuid:"+ utils.uuid(),
-        summary: "test 2 summary",
         published: str[i].created_at,
         author: {
           name: str[i].user.login,
@@ -242,9 +241,53 @@ https.get(config.feedurl, obj, function(res){
       })
     }
 
-    config.template.entries = arr;
+    config.templates.forum.entries = arr;
 
-    fs.writeFileSync('./atom/issues.atom', utils.atom_base(config.template))
+    fs.writeFileSync('./atom/issues.atom', utils.atom_base(config.templates.forum))
+  });
+
+})
+.on('error', function(e){
+  console.error(e);
+});
+
+https.get(config.newsurl, obj, function(res){
+  let str = ''
+  res.on('data', function(d){
+    str+=d
+  }).on('end', function(){
+    str = JSON.parse(str);
+
+    let arr = [],ttl, entry;
+
+    for (let i = 0; i < str.length; i++) {
+
+      arr.push({
+        title: str[i].title,
+        updated: str[i].updated_at,
+        id: "urn:uuid:"+ utils.uuid(),
+        published: str[i].created_at,
+        author: {
+          name: str[i].user.login,
+          uri: str[i].user.url
+        },
+        category: {
+          term: 'news'
+        },
+        content: {
+          type: "text",
+          data: str[i].body
+        },
+        link: {
+          title: "link",
+          href: config.baseurl+ '/#/news'
+        }
+      })
+    }
+
+    config.templates.news.entries = arr;
+
+    fs.writeFileSync('./atom/news.atom', utils.atom_base(config.templates.news))
   });
 
 })

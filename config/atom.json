@@ -1,33 +1,65 @@
 {
   "baseurl": "https://angeal185.github.io/github-forum",
   "feedurl": "https://api.github.com/repos/angeal185/github-forum/issues",
-  "template": {
-    "title": "github-forum issues feed",
-    "subtitle": "latest github-forum issues",
-    "icon": "https://example.com/icon.png",
-    "logo": "https://example.com/logo.png",
-    "updated": "2020-06-03T12:58:08.285Z",
-    "id": "urn:uuid:4027dc85-130a-4ca3-84f4-5a5e68b3faa9",
-    "rights": "© 2020 github-forum",
-    "generator": "github-forum",
-    "link": {
-      "type": "",
-      "rel": "",
-      "title": "github-forum",
-      "href": "https://angeal185.github.io/github-forum",
-      "hreflang": ""
+  "newsurl": "https://api.github.com/repos/angeal185/github-forum-news/issues",
+  "templates": {
+    "forum": {
+      "title": "github-forum issues feed",
+      "subtitle": "latest github-forum issues",
+      "icon": "https://example.com/icon.png",
+      "logo": "https://example.com/logo.png",
+      "updated": "2020-06-03T12:58:08.285Z",
+      "id": "urn:uuid:4027dc85-130a-4ca3-84f4-5a5e68b3faa9",
+      "rights": "© 2020 github-forum",
+      "generator": "github-forum",
+      "link": {
+        "type": "",
+        "rel": "",
+        "title": "github-forum",
+        "href": "https://angeal185.github.io/github-forum",
+        "hreflang": ""
+      },
+      "category": {
+        "term": "forum",
+        "label": "",
+        "scheme": ""
+      },
+      "author": {
+        "email": "angeal185@users.noreply.github.com",
+        "name": "angeal185",
+        "uri": "https://github.com/angeal185"
+      },
+      "contributor": ["ben eaves"],
+      "entries": []
     },
-    "category": {
-      "term": "forum",
-      "label": "",
-      "scheme": ""
-    },
-    "author": {
-      "email": "angeal185@users.noreply.github.com",
-      "name": "angeal185",
-      "uri": "https://github.com/angeal185"
-    },
-    "contributor": ["ben eaves"],
-    "entries": []
+    "news": {
+      "title": "github-forum news feed",
+      "subtitle": "latest github-forum news",
+      "icon": "https://example.com/icon.png",
+      "logo": "https://example.com/logo.png",
+      "updated": "2020-06-03T12:58:08.285Z",
+      "id": "urn:uuid:4027dc85-130a-4ca3-84f4-5a5e68b3faa9",
+      "rights": "© 2020 github-forum",
+      "generator": "github-forum",
+      "link": {
+        "type": "",
+        "rel": "",
+        "title": "github-forum",
+        "href": "https://angeal185.github.io/github-forum",
+        "hreflang": ""
+      },
+      "category": {
+        "term": "forum",
+        "label": "",
+        "scheme": ""
+      },
+      "author": {
+        "email": "angeal185@users.noreply.github.com",
+        "name": "angeal185",
+        "uri": "https://github.com/angeal185"
+      },
+      "contributor": ["ben eaves"],
+      "entries": []
+    }
   }
 }

@@ -28,5 +28,6 @@ jobs:
     - run: |
           git config --global user.name angeal185
           git config --global user.email angeal185@users.noreply.github.com
-          git commit -am "update"
+          git add *
+          git commit -m "update"
           git push

@@ -2,7 +2,14 @@
 
 let cobj = {
   txt: document.createTextNode('')
+},
+arr = ['div','span','h4','h5','p','img']
+
+for (let i = 0; i < arr.length; i++) {
+  cobj[arr[i]] = document.createElement(arr[i])
 }
+
+arr = null;
 
 const xu = {
   ctxt(l){

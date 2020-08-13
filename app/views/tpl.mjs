@@ -683,11 +683,15 @@ const tpl = {
                 return;
               }
 
+              obj.title = obj.title.replace(/ /g, '-')
+
               newobj = Object.assign({}, obj);
+              newobj.labels[0] = newobj.labels[0].replace(/ /g, '-')
               newobj.title = '[' + newobj.title + ']|[cat:'+ newobj.labels[0]+']|';
 
               for (let i = 1; i < newobj.labels.length; i++) {
                 if(utils.checkSpecial(newobj.labels[i])){
+                  newobj.labels[i] = newobj.labels[i].replace(/ /g, '-')
                   newobj.title+= ('[tag:'+ newobj.labels[i]+']');
                 }
               }
@@ -814,7 +818,7 @@ const tpl = {
     let sect = x('div', {class: 'col-lg-6'});
     for (let i = 0, keys = Object.keys(items); i < keys.length; i++) {
       sect.append(
-        x('p', items[keys[i]] +': ', x('span', {class: 'user-txt'}, obj[keys[i]]))
+        x('p', items[keys[i]] +': ', x('span', {class: 'user-txt'}, obj[keys[i]] || ''))
       )
     }
     return sect;

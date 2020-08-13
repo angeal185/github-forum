@@ -75,12 +75,19 @@ const xviews = {
 
   //views
   profile(stream, data){
+    try {
+      //body...
+
     let obj = stream.ssGet('userData'),
     tk = stream.ssGet('tk');
 
 
     if(!obj || typeof obj !== 'object' || !tk){
       return router.rout('/login', {})
+    }
+
+    if(!obj.avatar_url || obj.avatar_url === ''){
+      obj.avatar_url = xdata.app.user_logo;
     }
 
     let contrib = x('p', {class: 'user-txt'}),
@@ -96,9 +103,9 @@ const xviews = {
               }),
               x('div', {class: 'media-body'},
                 x('h4', {class: 'mb-4'}, obj.login),
-                x('p', {class: 'user-txt'}, obj.bio),
-                x('p', {class: 'user-txt'}, obj.location),
-                x('p', {class: 'user-txt'}, obj.blog),
+                x('p', {class: 'user-txt'}, obj.bio || ''),
+                x('p', {class: 'user-txt'}, obj.location || ''),
+                x('p', {class: 'user-txt'}, obj.blog || ''),
                 contrib, authored
               )
             )
@@ -145,10 +152,60 @@ const xviews = {
     })
 
     return item;
+  } catch (err) {
+    console.error(err)
+  }
   },
   login(stream, data){
 
-    let tk_inp = x('div', {class: 'form-group'},
+    let mdl = x('div', {class:'modal'},
+      x('div', {class:'modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg'},
+        x('div', {class:'modal-content'},
+          x('div', {class:'modal-header'},
+            x('h5', {class: 'modal-title'}, 'Login instructions')
+          ),
+          x('div', {class:'modal-body'},
+            x('p', 'By using github-forum, you understand that you are using your own github account to post, read or comment on data. github-forum allows your browser to connect with github directly without the need for third party authorization. At no time are your personal details trusted to any third party organizations and your login credentials only ever travel between your browser and github.'),
+            x('p', 'You also understand that misuse of this site is misuse of your github account. Even if not logged in, misuse of this site will quickly lead to your ip being blocked by github'),
+            x('p', 'github-forum is completely open source and available for code review ', x('span', {
+              class: 'a-txt sh-95',
+              onclick(){
+                window.open(xdata.app.code_base)
+              }
+            }, 'here')),
+            x('p', 'To login to github-forum for the first time you need to do the following:'),
+            x('ul',
+              x('li', 'Login to your Github Account'),
+              x('li', 'navigate to ', x('span', {
+                class: 'a-txt sh-95',
+                onclick(){
+                  window.open(xdata.app.new_token_base)
+                }
+              }, xdata.app.new_token_base)),
+              x('li', 'add a name for your access token in the Note input'),
+              x('li', 'The created access token must have permissions to read user profile and write issues/comments to repos'),
+              x('li', 'select the scopes read:user and public_repo'),
+              x('li', 'click on the “Generate token” button'),
+              x('li', 'Type or paste the created access token into the github-forum login access token input'),
+              x('li', 'add a strong password to the github-forum login input to store an AES-256-GCM encrypted copy of the token locally. Do not lose the password, as the encrypted token alone is useless and you will have to reset the process.'),
+              x('li', 'click the commit button'),
+              x('li', 'if successful, you should be redirected to your github-forum profile page'),
+              x('li', 'upon future logins and assuming the encrypted token is stored locally, you need only type your password to login'),
+              x('li', 'Your encrypted token can be deleted at anytime by clicking the reset button on the login page'),
+            )
+          ),
+          x('div', {class:'modal-footer'},
+            x('button', {
+              class: 'btn btn-sm btn-outline-primary',
+              onclick(){
+                mdl.classList.remove('show')
+              }
+            }, 'Close')
+          )
+        )
+      )
+    ),
+    tk_inp = x('div', {class: 'form-group'},
       x('input', {
         class:'form-control',
         type: 'password',
@@ -216,7 +273,14 @@ const xviews = {
               )
             )
           )
-        )
+        ),
+        x('div', {
+          class: 'col-12 text-center cp sh-95 mt-2',
+          onclick(){
+            mdl.classList.add('show')
+          }
+        }, 'Instructions'),
+        mdl
       )
     )
 

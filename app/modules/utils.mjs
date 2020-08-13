@@ -310,7 +310,7 @@ const utils = {
   sortTitle(i){
     try {
       i = i.split('|');
-      i[0] = i[0].slice(1,-1);
+      i[0] = i[0].slice(1,-1).replace(/-/g, ' ');
       i[1] = i[1].slice(5,-1);
       i[2] = i[2].replace(/\[tag:/g, '').split(']').slice(0,-1);
       return i;

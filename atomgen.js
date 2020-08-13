@@ -243,7 +243,7 @@ https.get(config.feedurl, obj, function(res){
 
     config.templates.forum.entries = arr;
 
-    fs.writeFileSync('./atom/issues.atom', utils.atom_base(config.templates.forum))
+    fs.writeFileSync('./atom/issues.atom', utils.atom_base(config.templates.forum)+'\n')
   });
 
 })
@@ -287,7 +287,7 @@ https.get(config.newsurl, obj, function(res){
 
     config.templates.news.entries = arr;
 
-    fs.writeFileSync('./atom/news.atom', utils.atom_base(config.templates.news))
+    fs.writeFileSync('./atom/news.atom', utils.atom_base(config.templates.news)+'\n')
   });
 
 })

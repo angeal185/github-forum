@@ -326,7 +326,7 @@ const xviews = {
 
     stream.ssSet('comment_pag', 1)
     let item = x('div'),
-    per_page = xdata.app.forum.comment_per_page,
+    per_page = xdata.app.comment_per_page,
     id = 'issue:' + data.data.number + ':page:1',
     src = data.data.comments_url + '?page=1&per_page='+ per_page,
     ccount = x('span'),
@@ -366,7 +366,7 @@ const xviews = {
         tpl.listitem_forum_main(data.data, Object.assign({},obj), router),
         comments,
         showMore,
-        tpl.create_comment(data.data.comments_url, data.data.comments, router, cat, data.data.number,rf)
+        tpl.create_comment(data.data.comments_url, data.data.comments, router, data.data.number,rf)
       )
 
       xidb.get({index: 'cache', id: id}, function(err,res){
@@ -379,13 +379,13 @@ const xviews = {
             ccount.textContent = utils.srt_comment(res.length);
             if(res.length < 100){
               showMore.append(
-                tpl.show_more_comment(data, comments, cat, router, obj, ccount)
+                tpl.show_more_comment(data, comments, router, obj, ccount)
               )
             }
 
             for (let i = 0; i < res.length; i++) {
               obj.url = res[i].reactions.url;
-              comments.append(tpl.listitem_forum_comment(res[i],cat, Object.assign({}, obj),router))
+              comments.append(tpl.listitem_forum_comment(res[i], Object.assign({}, obj),router))
             }
 
             obj2.data = res;
@@ -404,17 +404,89 @@ const xviews = {
           stream.ssSet('comment_len', res.data.length);
           if(res.data.length < 100){
             showMore.append(
-              tpl.show_more_comment(data, comments, cat, router, obj, ccount)
+              tpl.show_more_comment(data, comments, router, obj, ccount)
             )
           }
+
           for (let i = 0; i < res.data.length; i++) {
             obj.url = res.data[i].reactions.url;
-            comments.append(tpl.listitem_forum_comment(res.data[i], cat, Object.assign({}, obj), router))
+            comments.append(tpl.listitem_forum_comment(res.data[i], Object.assign({}, obj), router))
           }
-
 
         }
       })
+    })
+
+    return item
+  },
+  news(stream, data){
+    let cnt = x('span', {class:'float-right'})
+    let item = x('div',{class: 'list-group'},
+      x('div', {class: 'list-group-item active'}, 'News posts', cnt)
+    );
+
+    utils.getNews(item, router, 1, cnt);
+    return item;
+  },
+  news_post(stream, data){
+
+    stream.ssSet('comment_pag', 1)
+    let item = x('div'),
+    per_page = xdata.app.comment_per_page,
+    src = data.data.comments_url + '?page=1&per_page='+ per_page,
+    ccount = x('span'),
+    rf = x('span', {
+      class: 'float-right cp icon-redo-alt',
+      title: 'refresh',
+      onclick(){
+        router.rout('/news/post?ts='+Date.now(), {id: data.id, data: data.data})
+      }
+    }),
+    comments = x('div', {class: 'list-group'},
+      x('div', {class: 'list-group-item active'},
+        ccount,rf
+      )
+    ),
+    reactions = data.data.comments_url.split('/').slice(0,-1).join('/') +'/reactions',
+    tk = stream.ssGet('tk')
+
+    let obj = {
+      url: reactions,
+      opt: xdata.default.stream.react
+    },
+    showMore = x('div');
+
+    obj.opt.headers['Authorization'] = 'token '+ tk
+    obj.opt.body = JSON.stringify({content: 'eyes'});
+    utils.react(obj, function(err,res){
+      if(err){return console.error(err)}
+      item.append(
+        x('div',{class: 'list-group'},
+          x('div', {class: 'list-group-item active'}, 'News post'),
+          tpl.news_item(router, data.data, Object.assign({}, obj))
+        ),
+        comments,
+        showMore,
+        tpl.create_comment(data.data.comments_url, data.data.comments, router, data.data.number,rf)
+      )
+
+      utils.get(src, xdata.default.stream.fetch, function(err,res){
+        if(err){return console.error(err)}
+        stream.ssSet('comment_len', res.length);
+        ccount.textContent = utils.srt_comment(res.length);
+        if(res.length < 100){
+          showMore.append(
+            tpl.show_more_comment(data, comments, router, obj, ccount)
+          )
+        }
+
+        for (let i = 0; i < res.length; i++) {
+          obj.url = res[i].reactions.url;
+          comments.append(tpl.listitem_forum_comment(res[i], Object.assign({}, obj),router))
+        }
+
+      })
+
     })
 
     return item

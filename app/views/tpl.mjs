@@ -381,7 +381,7 @@ const tpl = {
       item
     );
   },
-  listitem_forum_comment(res, cat, obj, router){
+  listitem_forum_comment(res, obj, router){
 
     if(!res.user.avatar_url || res.user.avatar_url === ''){
       res.user.avatar_url = xdata.app.user_logo;
@@ -724,7 +724,7 @@ const tpl = {
 
     return item
   },
-  create_comment(issue, cnt, router, cat, num, rf){
+  create_comment(issue, cnt, router, num, rf){
     let obj = {
       body: ''
     },
@@ -786,13 +786,13 @@ const tpl = {
     return item
   },
   //blog
-  sidebar_blog(){
+  sidebar_news(){
 
   },
-  listgroup_blog(){
+  listgroup_news(){
 
   },
-  listitem_blog(){
+  listitem_news(){
 
   },
   //portal
@@ -855,6 +855,38 @@ const tpl = {
 
     return item;
   },
+  show_more_news(items, router){
+
+    let item = x('button',{
+      class: 'btn btn-block btn-sm btn-primary mb-4',
+      onclick(){
+        let pag = sessionStorage.getItem('issue_pag'),
+        src = xdata.app.news.issues.replace('{{page}}', pag+1);
+
+        utils.get(src, xdata.default.stream.fetch, function(err,res){
+          if(err){
+            item.remove();
+            return console.error(err)
+          }
+
+          if(!res.items || !res.items.length){
+            item.textContent = 'No more news';
+            item.onclick = null;
+          }
+
+          sessionStorage.setItem('issue_pag', pag + 1);
+
+          for (let i = 0; i < res.items.length; i++) {
+            items.append(tpl.news_item(router, res.items[i]));
+          }
+
+        })
+
+      }
+    }, 'show more')
+
+    return item;
+  },
   show_more_Search(term, items, router, dtype){
 
     let item = x('button',{
@@ -893,13 +925,13 @@ const tpl = {
 
     return item;
   },
-  show_more_comment(data, comments, cat, router, obj, ccount){
+  show_more_comment(data, comments, router, obj, ccount){
 
     let item = x('button',{
       class: 'btn btn-block btn-sm btn-primary mb-4',
       onclick(){
         let pag = parseInt(sessionStorage.getItem('comment_pag')),
-        per_page = xdata.app.forum.comment_per_page,
+        per_page = xdata.app.comment_per_page,
         src = data.data.comments_url + '?per_page='+ per_page +'&page='+ (pag + 1),
         clen = parseInt(sessionStorage.getItem('comment_len'));
 
@@ -921,7 +953,7 @@ const tpl = {
 
           for (let i = 0; i < res.length; i++) {
             obj.url = res[i].reactions.url;
-            comments.append(tpl.listitem_forum_comment(res[i],cat, Object.assign({}, obj),router))
+            comments.append(tpl.listitem_forum_comment(res[i], Object.assign({}, obj),router))
           }
 
         })
@@ -968,6 +1000,70 @@ const tpl = {
       ))
     }
     return item
+  },
+  news_item(router, res, obj){
+    let date_arr = res.created_at.slice(0,-1).split('T')
+
+    if(!res.user.avatar_url || res.user.avatar_url === ''){
+      res.user.avatar_url = xdata.app.user_logo;
+    }
+
+    return x('div', {class: 'list-group-item'},
+      x('div', {class: 'row'},
+        x('div', {class: 'col-12'},
+          x('div', {class: 'media'},
+            x('img',{
+              class: 'mr-3 min-img',
+              src: res.user.avatar_url,
+              onerror(evt){
+                evt.target.src = xdata.app.user_logo
+              }
+            }),
+            x('div', {class: 'media-body'},
+              x('h5', {
+                class: 's-title',
+                onclick(){
+                  router.rout('/news/post?ts='+ Date.now(), {data: res})
+                }
+              }, res.title)
+            )
+          )
+        ),
+        x('div', {class: 'col-12'},
+          function(){
+            if(obj){
+              return x('p', res.body)
+            }
+          },
+          x('div',
+            x('span', {
+              class: 'icon-user cat-ico',
+              title: 'user',
+              onclick(){
+                router.rout('/forum/user?q='+ res.user.login, {term: res.user.login})
+              }
+            }, res.user.login),
+            x('span', {class: 'cat-ico', title: 'date/time'}, date_arr.join('/')),
+            x('span', {class: 'icon-comments cat-ico', title: 'comments'}, res.comments),
+            x('span', {class: 'icon-eye cat-ico', title: 'views'}, res.reactions.eyes),
+            x('span', {
+              class: 'icon-heart cat-ico',
+              title: 'hearts',
+              onclick(evt){
+                if(obj){
+                  obj.opt.body = JSON.stringify({content: 'heart'});
+                  utils.react(obj, function(err,res){
+                    if(err){return console.error(err)}
+                    evt.target.textContent = (parseInt(evt.target.textContent) + 1)
+                  })
+                }
+              }
+            }, res.reactions.heart)
+          )
+        )
+      )
+    )
+
   }
 }
 

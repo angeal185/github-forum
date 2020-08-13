@@ -115,6 +115,28 @@ const utils = {
       }
     })
   },
+  getNews(item, router, page, cnt){
+
+    let src = xdata.app.news.issues.replace('{{page}}', page);
+
+    sessionStorage.setItem('issue_pag', page);
+
+    utils.get(src, xdata.default.stream.fetch, function(err,res){
+      if(err){return console.error(err)}
+
+      for (let i = 0; i < res.items.length; i++) {
+        item.append(tpl.news_item(router, res.items[i]));
+      }
+
+      cnt.textContent = res.total_count;
+      if(res.total_count > xdata.app.forum.issues_per_page){
+        item.append(
+          tpl.show_more_news(item, router)
+        );
+      }
+    })
+
+  },
   getForumSearch(term, item, router, page, dtype){
 
     let src;

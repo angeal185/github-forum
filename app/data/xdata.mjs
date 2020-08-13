@@ -1,4 +1,6 @@
-const repo = 'angeal185/github-forum';
+const repo = 'angeal185/github-forum',
+news_repo = 'angeal185/github-forum-news',
+news_id = 142029577;
 
 const xdata = {
   default:{
@@ -103,11 +105,11 @@ const xdata = {
     api: 'https://api.github.com/',
     search: 'https://api.github.com/search/',
     forum_id: 142029577,
-    blog_id: 142029577,
     user_logo: './app/img/user.png',
     user_data: 'https://api.github.com/user',
     code_base: 'https://github.com/angeal185/github-forum',
     new_token_base: 'https://github.com/settings/tokens/new',
+    comment_per_page: 100,
     forum: {
       latest_issues_max: 5,
       max_tags: 3,
@@ -116,7 +118,6 @@ const xdata = {
       max_issue_title_length: 32,
       max_comment_length: 500,
       issues_per_page: 100, // don't change me yet
-      comment_per_page: 2,
       base_url: 'https://api.github.com/'+ repo +'/repos/issues',
       categories: ['cat1', 'cat2', 'cat3'],
       tag_cloud: ['tag1', 'tag2', 'tag3', 'tag4', 'tag5'],
@@ -129,15 +130,14 @@ const xdata = {
       create_comment: 'https://api.github.com/repos/'+ repo +'/issues/{{issue}}/comments',
       user_issues: 'https://api.github.com/search/issues?q=[catin:title+repo:'+ repo +'+type:issue+state:open+{{type}}:{{user}}',
     },
-    blog: {
-      base_url: '',
-      categories: [],
-      cat_search: 'https://api.github.com/search/issues?q=repo:'+ repo +'+state:open+label:{{category}}+type:issue+state:open&page={{page}}',
-      blog_issue: 'https://api.github.com/repos/'+ repo +'/issues/{{issue}}/comments'
+    news: {
+      base_url: 'https://api.github.com/'+ news_repo +'/repos/issues',
+      news_issue: 'https://api.github.com/repos/'+ news_repo +'/issues/{{issue}}/comments',
+      issues: 'https://api.github.com/search/issues?q=+repo:'+ news_repo +'+type:issue+state:open+label:news&page={{page}}'
     }
   },
   base: {
-    nav: ['forum', 'blog', 'about', 'contact', 'terms']
+    nav: ['forum', 'news', 'about', 'contact', 'terms']
   },
   profile: {
     items_a: {
@@ -165,8 +165,8 @@ const xdata = {
   forum: {
     msg: 'forum page'
   },
-  blog: {
-    msg: 'blog page'
+  news: {
+    msg: 'news page'
   },
   about: {
     msg: 'about page'

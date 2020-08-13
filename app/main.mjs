@@ -77,16 +77,16 @@ router.on('/login', function(request, stream){
     })
   }
 })
-.on('/blog', function(request, stream) {
+.on('/news', function(request, stream) {
   if(utils.isAuth(router)){
-    stream.render('blog', request.data, function(err){
+    stream.render('news', request.data, function(err){
       if(err){return stream.renderErr();}
     })
   }
 })
-.on('/blog/category', function(request, stream) {
+.on('/news/post', function(request, stream) {
   if(utils.isAuth(router)){
-    stream.render('blog_category', request.data, function(err){
+    stream.render('news_post', request.data, function(err){
       if(err){return stream.renderErr();}
     })
   }

@@ -82,7 +82,7 @@ let utils = {
       base += utils.atom_entry(obj.entries[i])
     }
 
-    base += '</feed>'
+    base += '</feed>\n\n'
 
     return base
 
@@ -243,7 +243,7 @@ https.get(config.feedurl, obj, function(res){
 
     config.templates.forum.entries = arr;
 
-    fs.writeFileSync('./atom/issues.atom', utils.atom_base(config.templates.forum)+'\n')
+    fs.writeFileSync('./atom/issues.atom', utils.atom_base(config.templates.forum))
   });
 
 })
@@ -287,7 +287,7 @@ https.get(config.newsurl, obj, function(res){
 
     config.templates.news.entries = arr;
 
-    fs.writeFileSync('./atom/news.atom', utils.atom_base(config.templates.news)+'\n')
+    fs.writeFileSync('./atom/news.atom', utils.atom_base(config.templates.news))
   });
 
 })

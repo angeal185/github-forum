@@ -1,0 +1,33 @@
+{
+  "baseurl": "https://localhost:4443",
+  "feedurl": "https://api.github.com/repos/angeal185/github-forum/issues",
+  "template": {
+    "title": "example feed",
+    "subtitle": "example subtitle",
+    "icon": "https://example.com/icon.png",
+    "logo": "https://example.com/logo.png",
+    "updated": "2020-06-03T12:58:08.285Z",
+    "id": "urn:uuid:4027dc85-130a-4ca3-84f4-5a5e68b3faa9",
+    "rights": "© 2020 github-forum",
+    "generator": "github-forum",
+    "link": {
+      "type": "",
+      "rel": "",
+      "title": "example link title",
+      "href": "https://example.com",
+      "hreflang": ""
+    },
+    "category": {
+      "term": "example",
+      "label": "",
+      "scheme": ""
+    },
+    "author": {
+      "email": "example@example.com",
+      "name": "john smith",
+      "uri": "https://example.com"
+    },
+    "contributor": ["john smith"],
+    "entries": []
+  }
+}

@@ -1,10 +1,8 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  issues:
+    types: [opened, edited, closed, deleted]
 
 jobs:
   build:

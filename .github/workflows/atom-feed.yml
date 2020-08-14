@@ -1,4 +1,4 @@
-name: atom-feed enerate
+name: atom-feed generate
 
 on:
   schedule:

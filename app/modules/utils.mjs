@@ -98,7 +98,7 @@ const utils = {
         })
 
       } else {
-        console.log('loaded from cache')
+
         items = tpl[sel](cat, res.data, router);
         item.append(items)
 
@@ -182,7 +182,6 @@ const utils = {
         })
 
       } else {
-        console.log('loaded from cache')
         tpl.latest_tpl(item, router, res.data)
       }
     })

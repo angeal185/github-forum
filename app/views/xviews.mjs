@@ -289,7 +289,6 @@ const xviews = {
       )
     )
 
-
     return item;
   },
   forum(stream, data){
@@ -326,7 +325,6 @@ const xviews = {
       item.append(ucard);
       utils.get(xdata.app.users_data + data.term, xdata.default.stream.fetch, function(err,res){
         if(err){return ucard.remove();}
-        console.log(res)
         ucard.append(tpl.user_card(res))
       })
     }
@@ -414,7 +412,6 @@ const xviews = {
           })
 
         } else {
-          console.log('loaded from cache')
 
           ccount.textContent = utils.srt_comment(res.data.length);
           stream.ssSet('comment_len', res.data.length);

@@ -1,6 +1,6 @@
 const routes = {
   base: {
-    nav: ['forum', 'news', 'about', 'contact', 'terms']
+    nav: ['forum', 'news', 'terms', 'contact']
   },
   profile: {
     items_a: {

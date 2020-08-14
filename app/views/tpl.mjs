@@ -28,18 +28,47 @@ const tpl = {
       evt = evt.detail;
       let ele;
       if(evt){
-        let img = JSON.parse(sessionStorage.getItem('userData')).avatar_url
-        ele = x('img', {
-          class: 'nav-img',
-          title: 'profile',
-          src: img,
-          onerror(evt){
-            evt.target.src = xdata.app.user_logo
-          },
+        let ud = JSON.parse(sessionStorage.getItem('userData')),
+        ddown = x('div',{class: 'login-menu'},
+          x('div', {class:'text-center'},
+            x('img', {
+              class: 'login-img img-thumbnail',
+              title: 'profile',
+              src: ud.avatar_url,
+              onerror(evt){
+                evt.target.src = xdata.app.user_logo
+              }
+            }),
+            x('small', {class: 'd-block'}, ud.login)
+          ),
+          x('div', {class:'text-center'},
+            x('button', {
+              class: 'btn btn-sm btn-block btn-outline-primary',
+              onclick(evt){
+                router.rout('/profile')
+              }
+            }, 'Profile')
+          ),
+          x('div', {class:'text-center mt-2'},
+            x('button', {
+              class: 'btn btn-sm btn-block btn-outline-primary',
+              onclick(){
+                sessionStorage.removeItem('userData')
+                sessionStorage.removeItem('tk')
+                window.dispatchEvent(new CustomEvent("auth-status"))
+                router.rout('/login')
+              }
+            }, 'Logout')
+          )
+        )
+
+        ele = x('div', {
+          class: 'icon-cog nav-lnk',
           onclick(){
-            router.rout('/profile')
+            ddown.classList.toggle('show')
           }
-        })
+        },ddown)
+
       } else {
         ele = x('div', {
           class: 'nav-lnk',

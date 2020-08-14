@@ -69,6 +69,26 @@
     line-height: 1.8;
 }
 
+.login-menu{
+  display: none;
+  position: absolute;
+  background: white;
+  padding: 1rem;
+  box-shadow: 0 0 4px black;
+  width: 150px;
+  right: 0;
+  top: 4rem;
+  z-index: 99;
+}
+
+.login-img{
+  width: 4rem;
+}
+
+.login-menu.show{
+  display: block;
+}
+
 .nav-right{
   display: inherit;
   justify-content: flex-end;

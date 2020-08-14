@@ -72,11 +72,6 @@ const xviews = Object.assign({
     xviews.build = null;
     return item
   },
-  error(stream, data){
-    return x('code', stream.js(data))
-  },
-
-  //views
   profile(stream, data){
     try {
       //body...
@@ -504,7 +499,10 @@ const xviews = Object.assign({
     })
 
     return item
-  }
+  },
+  error(stream, data){
+    return x('code', stream.js(data))
+  },
 },routes)
 
 export { xviews }

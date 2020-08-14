@@ -1,10 +1,10 @@
-name: Node.js CI
+name: atom-feed enerate
 
 on:
-#  schedule:
-#    - cron:  '* 3 * * *'
-  issues:
-    types: [opened, edited, closed, deleted]
+  schedule:
+    - cron:  '* 3 * * *'
+#  issues:
+#    types: [opened, edited, closed, deleted]
 
 jobs:
   build:

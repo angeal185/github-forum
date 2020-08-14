@@ -6,23 +6,53 @@ import { xidb } from '../modules/xidb.mjs';
 const tpl = {
   //nav
   menu_main(router){
-    let nav_left = x('div', {class: 'nav-left col-md-12 col-lg-6'},
+    let nav_left = x('div', {class: 'nav-left col-6 d-flex'},
+      x('div', {
+        class: 'nav-lnk icon-bars mr-2 d-lg-none',
+        onclick(){
+          window.dispatchEvent(new Event("toggle-sidebar"));
+        }
+      }),
       x('div', 'logo here')
     ),
-    nav_right = x('div', {class: 'nav-right col-lg-6'}),
+    nav_right = x('div', {class: 'nav-right col-6'}),
+    nav_sb = x('div', {class: 'nav-sb d-lg-none'},
+      x('div', {class: 'sb-body'})
+    ),
     items = xdata.base.nav,
+    sb_items = xdata.base.nav_sb,
     login_status = x('span'), login_event;
 
     for (let i = 0; i < items.length; i++) {
       nav_right.append(x('div', {
-        class: 'nav-lnk',
+        class: 'nav-lnk d-none d-lg-block',
         onclick(){
           router.rout('/'+ items[i])
         }
       }, items[i]))
+
+    }
+
+    nav_sb.firstChild.append(tpl.quick_search(router));
+
+    for (let i = 0; i < sb_items.length; i++) {
+      nav_sb.firstChild.append(x('div', {
+          class: 'sb-lnk',
+          onclick(){
+            window.dispatchEvent(new Event("toggle-sidebar"));
+            router.rout('/'+ sb_items[i])
+          }
+        },
+        sb_items[i],
+        x('span', {class:'icon-chevron-right float-right'})
+      ))
     }
 
     nav_right.append(login_status)
+
+    window.addEventListener('toggle-sidebar', function(evt){
+      nav_sb.classList.toggle('active')
+    })
 
     window.addEventListener('auth-status', function(evt){
       evt = evt.detail;
@@ -90,10 +120,11 @@ const tpl = {
 
     window.dispatchEvent(new CustomEvent("auth-status",{detail: login_event}));
 
-    return x('nav', {class: 'navbar menu-nav'},
+    return x('nav', {class: 'navbar fixed-top menu-nav'},
       x('div', {class: 'row'},
         nav_left, nav_right
-      )
+      ),
+      nav_sb
     );
 
   },
@@ -136,8 +167,12 @@ const tpl = {
       res.user.avatar_url = xdata.app.user_logo;
     }
 
-    let ttl = utils.sortTitle(res.title),
-    date_arr = res.created_at.slice(0,-1).split('T'),
+    let ttl = utils.sortTitle(res.title);
+    if(!ttl){
+      return '';
+    }
+
+    let date_arr = res.created_at.slice(0,-1).split('T'),
     item = x('div', {
         class: 'list-group-item',
       },
@@ -236,8 +271,12 @@ const tpl = {
       res.user.avatar_url = xdata.app.user_logo;
     }
 
-    let ttl = utils.sortTitle(res.title),
-    date_arr = res.created_at.slice(0,-1).split('T'),
+    let ttl = utils.sortTitle(res.title);
+    if(!ttl){
+      return '';
+    }
+
+    let date_arr = res.created_at.slice(0,-1).split('T'),
     item = x('div', {class: 'list-group-item'},
       x('div', {class: 'row'},
         x('div', {class: 'col-lg-6'},
@@ -319,6 +358,9 @@ const tpl = {
     }
 
     let ttl = utils.sortTitle(res.title);
+    if(!ttl){
+      return '';
+    }
 
     let date_arr = res.created_at.slice(0,-1).split('T'),
     item = x('div', {class: 'list-group-item'},
@@ -512,7 +554,7 @@ const tpl = {
         x('div', {class: 'input-group-append'},btn)
       ),
       function(){
-        let optGroup = x('div'),
+        let optGroup = x('div', {class: 'mt-1 ml-1 fs-1'}),
         items = ['title', 'category', 'tag', 'author'];
         for (let i = 0; i < items.length; i++) {
           optGroup.append(x('div',{class: 'form-check form-check-inline'},
@@ -541,7 +583,7 @@ const tpl = {
   },
   latest(router, sel){
 
-    let item = x('div', {class: 'list-group'},
+    let item = x('div', {class: 'list-group d-none d-lg-block'},
       x('div', {class: 'list-group-item active'},'forum '+ sel)
     )
     utils.getNew(item,router,sel);
@@ -549,13 +591,18 @@ const tpl = {
   },
   latest_tpl(item, router, res){
 
-    let date_arr;
+    let date_arr,
+    max = xdata.app.forum.latest_issues_max,
+    cnt = 0;
     for (let i = 0; i < res.length; i++) {
 
       if(!res[i].user.avatar_url || res[i].user.avatar_url === ''){
         res[i].user.avatar_url = xdata.app.user_logo;
       }
       let ttl = utils.sortTitle(res[i].title);
+      if(!ttl){
+        continue;
+      }
 
       date_arr = res[i].created_at.slice(0,-1).split('T')
       item.append(x('div', {class: 'list-group-item'},
@@ -628,6 +675,10 @@ const tpl = {
           )
         )
       ))
+      cnt++;
+      if(cnt === max){
+        break;
+      }
     }
   },
   create_issue(cat,router){
@@ -1082,7 +1133,7 @@ const tpl = {
   },
   cat_cloud(router){
     let div = x('div', {class: 'list-group-item'}),
-    item = x('div', {class: 'list-group'},
+    item = x('div', {class: 'list-group d-none d-lg-block'},
       x('div', {class: 'list-group-item active'}, 'Categories'),
       div
     ),
@@ -1101,7 +1152,7 @@ const tpl = {
   },
   tag_cloud(router){
     let div = x('div', {class: 'list-group-item'}),
-    item = x('div', {class: 'list-group'},
+    item = x('div', {class: 'list-group d-none d-lg-block'},
       x('div', {class: 'list-group-item active'}, 'Tag cloud'),
       div
     ),
@@ -1120,7 +1171,7 @@ const tpl = {
   },
   moderators(router){
     let div = x('div', {class: 'list-group-item'}),
-    item = x('div', {class: 'list-group'},
+    item = x('div', {class: 'list-group d-none d-lg-block'},
       x('div', {class: 'list-group-item active'}, 'Moderators'),
       div
     ),

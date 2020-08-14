@@ -169,9 +169,6 @@ const utils = {
 
         utils.get(src, xdata.default.stream.fetch, function(err,res){
           if(err){return console.error(err)}
-          if(sel === 'latest'){
-            res = res.items
-          }
           tpl.latest_tpl(item, router, res)
           obj.data = res;
           obj.date = (Date.now() + xdata.default.idb.cache_maxage)

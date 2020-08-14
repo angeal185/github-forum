@@ -16,7 +16,10 @@ const xdata = Object.assign({
     webmanifest: './manifest.webmanifest',
     base_script_name: 'main',
     csp: "default-src 'self';img-src *;object-src 'none';frame-src 'none';block-all-mixed-content;upgrade-insecure-requests;connect-src https://api.github.com",
-    meta: [],
+    meta: [{
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1'
+    }],
     styles:[{
       href: './app/css/bootstrap.min.css',
       rel: 'stylesheet'
@@ -140,8 +143,8 @@ const xdata = Object.assign({
       cat_search: 'https://api.github.com/search/issues?q=[cat:{{category}}]in:title+repo:'+ repo +'+type:issue+state:open&page={{page}}',
       search: 'https://api.github.com/search/issues?q={{search}}in:title+repo:'+ repo +'+type:issue+state:open&page={{page}}',
       cat_issue: 'https://api.github.com/repos/'+ repo +'/issues/{{issue}}/comments?page={{page}}',
-      latest: 'https://api.github.com/search/issues?q=[catin:title+repo:'+ repo +'+type:issue+state:open&per_page=3',
-      popular: 'https://api.github.com/repos/'+ repo +'/issues?sort=comments&per_page=3',
+      latest: 'https://api.github.com/repos/'+ repo +'/issues?sort=created&state=open&per_page=30',
+      popular: 'https://api.github.com/repos/'+ repo +'/issues?sort=comments&state=open&per_page=30',
       create_issue: 'https://api.github.com/repos/'+ repo +'/issues',
       create_comment: 'https://api.github.com/repos/'+ repo +'/issues/{{issue}}/comments',
       user_issues: 'https://api.github.com/search/issues?q=[catin:title+repo:'+ repo +'+type:issue+state:open+{{type}}:{{user}}',

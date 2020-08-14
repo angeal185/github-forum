@@ -54,6 +54,9 @@
 .icon-sun:before { content: '\e82f'; } /* '' */
 .icon-search:before { content: '\e844'; } /* '' */
 
+body{
+  padding-top: 4rem;
+}
 .app-main{
   margin-top: 3rem;
   margin-bottom: 2rem;
@@ -67,6 +70,40 @@
     height: 4rem;
     font-size: 1.6rem;
     line-height: 1.8;
+    z-index: 99;
+}
+
+.nav-sb{
+  position: fixed;
+  left: -21rem;
+  width: 20rem;
+  top: 4rem;
+  background: white;
+  z-index: 99;
+  color: black;
+  box-shadow: 0 0 4px grey;
+  transition: left .5s;
+}
+
+.sb-body{
+  height: calc(100vh - 4rem);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 1rem 1rem 2rem 1rem;
+}
+
+.sb-lnk{
+  border-bottom: 1px solid #c5c5c5;
+  cursor: pointer;
+  transition: padding-right .5s;
+}
+
+.sb-lnk:hover {
+  padding-right: 1rem;
+}
+
+.nav-sb.active{
+  left: 0;
 }
 
 .login-menu{
@@ -339,4 +376,8 @@ margin-top: 1rem;
 
 .user-img{
   max-width: 10rem;
+}
+
+.fs-1{
+  font-size: 1rem;
 }

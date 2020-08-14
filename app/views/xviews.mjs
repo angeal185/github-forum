@@ -29,7 +29,9 @@ const xviews = Object.assign({
       x('div', {class: 'app-main container-fluid'},
         x('div', {class: 'app-main row'},
           x('div', {class: 'col-lg-3'},
-            tpl.quick_search(router),
+            x('div', {class: 'd-none d-lg-block'},
+              tpl.quick_search(router)
+            ),
             tpl.moderators(router),
             tpl.latest(router, 'latest'),
             tpl.latest(router, 'popular'),
@@ -210,12 +212,14 @@ const xviews = Object.assign({
       x('input', {
         class:'form-control',
         type: 'password',
+        autocomplete: 'new-password',
         placeHolder: 'github access token'
       })
     ),
     pass_inp = x('input', {
       class:'form-control',
       type: 'password',
+      autocomplete: 'new-password',
       placeHolder: 'password'
     }),
     tk_msg = x('p');

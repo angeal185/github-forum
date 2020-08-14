@@ -10,9 +10,12 @@
     "type": "git",
     "url": "git+https://github.com/angeal185/github-forum.git"
   },
-  "keywords": ["forum", "single-page-app", "javascript", "news-feed", "pwa", "spa", "web-framework"],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "forum", "single-page-app", "javascript", "news-feed",
+    "pwa", "spa", "web-framework", "github-api", "github-pages"
+  ],
+  "author": "ben eaves",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/angeal185/github-forum/issues"
   },

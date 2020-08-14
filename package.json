@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/angeal185/github-forum.git"
   },
-  "keywords": [],
+  "keywords": ["forum", "single-page-app", "javascript", "news-feed", "pwa", "spa", "web-framework"],
   "author": "",
   "license": "ISC",
   "bugs": {

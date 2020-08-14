@@ -160,17 +160,20 @@ const utils = {
     })
 
   },
-  getNew(item, router){
-    let src = xdata.app.forum.latest,
-    id = 'forum_latest';
+  getNew(item, router, sel){
+    let src = xdata.app.forum[sel],
+    id = 'forum_'+ sel;
     xidb.get({index: 'cache', id: id}, function(err,res){
       if(err || !res || res.date < Date.now()){
         let obj = {id: id};
 
         utils.get(src, xdata.default.stream.fetch, function(err,res){
           if(err){return console.error(err)}
-          tpl.latest_tpl(item, router, res.items)
-          obj.data = res.items;
+          if(sel === 'latest'){
+            res = res.items
+          }
+          tpl.latest_tpl(item, router, res)
+          obj.data = res;
           obj.date = (Date.now() + xdata.default.idb.cache_maxage)
           xidb.add({index: 'cache', data: obj, put: true}, function(err){
             if(err){return console.log('unable to add item to cache')}

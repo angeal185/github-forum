@@ -30,7 +30,8 @@ const xviews = {
           x('div', {class: 'col-lg-3'},
             tpl.quick_search(router),
             tpl.moderators(router),
-            tpl.latest(router),
+            tpl.latest(router, 'latest'),
+            tpl.latest(router, 'popular'),
             tpl.cat_cloud(router),
             tpl.tag_cloud(router)
           ),

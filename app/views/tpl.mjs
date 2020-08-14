@@ -510,12 +510,12 @@ const tpl = {
       }
     )
   },
-  latest(router){
+  latest(router, sel){
 
     let item = x('div', {class: 'list-group'},
-      x('div', {class: 'list-group-item active'},'latest forum')
+      x('div', {class: 'list-group-item active'},'forum '+ sel)
     )
-    utils.getNew(item,router);
+    utils.getNew(item,router,sel);
     return item;
   },
   latest_tpl(item, router, res){

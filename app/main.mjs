@@ -63,20 +63,6 @@ router.on('/login', function(request, stream){
     })
   }
 })
-.on('/forum/latest', function(request, stream) {
-  if(utils.isAuth(router)){
-    stream.render('forum_create', request.data, function(err){
-      if(err){return stream.renderErr();}
-    })
-  }
-})
-.on('/forum/popular', function(request, stream) {
-  if(utils.isAuth(router)){
-    stream.render('forum_create', request.data, function(err){
-      if(err){return stream.renderErr();}
-    })
-  }
-})
 .on('/news', function(request, stream) {
   if(utils.isAuth(router)){
     stream.render('news', request.data, function(err){
@@ -90,11 +76,6 @@ router.on('/login', function(request, stream){
       if(err){return stream.renderErr();}
     })
   }
-})
-.on('/about', function(request, stream) {
-  stream.render('about', request.data, function(err){
-    if(err){return stream.renderErr();}
-  })
 })
 .on('/contact', function(request, stream) {
   stream.render('contact', request.data, function(err){

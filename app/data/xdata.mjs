@@ -126,7 +126,7 @@ const xdata = Object.assign({
       img: 'https://avatars2.githubusercontent.com/u/68107105?v=4'
     }],
     forum: {
-      latest_issues_max: 5,
+      latest_issues_max: 3,
       max_tags: 3,
       max_tag_length: 16,
       max_issue_length: 500,
@@ -141,6 +141,7 @@ const xdata = Object.assign({
       search: 'https://api.github.com/search/issues?q={{search}}in:title+repo:'+ repo +'+type:issue+state:open&page={{page}}',
       cat_issue: 'https://api.github.com/repos/'+ repo +'/issues/{{issue}}/comments?page={{page}}',
       latest: 'https://api.github.com/search/issues?q=[catin:title+repo:'+ repo +'+type:issue+state:open&per_page=5',
+      popular: 'https://api.github.com/repos/'+ repo +'/issues?sort=comments&per_page=5',
       create_issue: 'https://api.github.com/repos/'+ repo +'/issues',
       create_comment: 'https://api.github.com/repos/'+ repo +'/issues/{{issue}}/comments',
       user_issues: 'https://api.github.com/search/issues?q=[catin:title+repo:'+ repo +'+type:issue+state:open+{{type}}:{{user}}',

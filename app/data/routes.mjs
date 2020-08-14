@@ -23,22 +23,19 @@ const routes = {
     }
   },
   login: {
-    msg: 'portal page'
+    msg: 'login page data here...'
   },
   forum: {
-    msg: 'forum page'
+    msg: 'forum page data here...'
   },
   news: {
-    msg: 'news page'
-  },
-  about: {
-    msg: 'about page'
+    msg: 'news page data here..'
   },
   contact: {
-    msg: 'contact page'
+    msg: 'some contact data here...'
   },
   terms: {
-    msg: 'terms page'
+    msg: 'some terms data here...'
   }
 }
 

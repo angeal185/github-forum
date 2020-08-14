@@ -2,10 +2,11 @@ import { x } from '../modules/xscript.mjs';
 import { xdata } from '../data/xdata.mjs';
 import { router } from '../modules/jsnode.mjs';
 import { tpl } from './tpl.mjs';
+import { routes } from './routes.mjs';
 import { utils } from '../modules/utils.mjs';
 import { xidb } from '../modules/xidb.mjs';
 
-const xviews = {
+const xviews = Object.assign({
   build(app_main){
 
     let toTop = x('div', {
@@ -504,6 +505,6 @@ const xviews = {
 
     return item
   }
-}
+},routes)
 
 export { xviews }

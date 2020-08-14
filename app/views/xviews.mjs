@@ -29,6 +29,7 @@ const xviews = {
         x('div', {class: 'app-main row'},
           x('div', {class: 'col-lg-3'},
             tpl.quick_search(router),
+            tpl.moderators(router),
             tpl.latest(router),
             tpl.cat_cloud(router),
             tpl.tag_cloud(router)
@@ -98,8 +99,11 @@ const xviews = {
           x('div', {class: 'card-body'},
             x('div', {class: 'media'},
               x('img', {
-                class: 'img-thumbnail mr-4',
-                src: obj.avatar_url
+                class: 'img-thumbnail mr-4 user-img',
+                src: obj.avatar_url,
+                onerror(evt){
+                  evt.target.src = xdata.app.user_logo
+                }
               }),
               x('div', {class: 'media-body'},
                 x('h4', {class: 'mb-4'}, obj.login),
@@ -304,6 +308,9 @@ const xviews = {
   },
   forum_search(stream, data){
     let str;
+
+    let item = x('div')
+
     if(!data.type){
       str = 'Search results';
     } else if(data.type === 'tag'){
@@ -313,14 +320,22 @@ const xviews = {
       str = [data.term, 'issues'].join(' ')
       data.term = '[cat:'+ data.term +']'
     } else if(data.type === 'author'){
-      str = [data.term, 'issues'].join(' ')
+      str = [data.term, 'issues'].join(' ');
+      let ucard = x('div',{class: 'row'});
+      item.append(ucard);
+      utils.get(xdata.app.users_data + data.term, xdata.default.stream.fetch, function(err,res){
+        if(err){return ucard.remove();}
+        console.log(res)
+        ucard.append(tpl.user_card(res))
+      })
     }
 
-    let item = x('div', {class: 'list-group'},
+    item.append(x('div', {class: 'list-group'},
       x('div', {class: 'list-group-item active'},str)
-    )
-    utils.getForumSearch(data.term, item, router, '1', data.type);
-    return x('div', item, tpl.show_more_Search(data.term, item, router, data.type));
+    ))
+
+    utils.getForumSearch(data.term, item.lastChild, router, '1', data.type);
+    return x('div', item, tpl.show_more_Search(data.term, item.lastChild, router, data.type));
   },
   forum_issue(stream, data){
 

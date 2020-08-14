@@ -316,3 +316,7 @@ margin-top: 1rem;
     opacity: 0
   }
 }
+
+.user-img{
+  max-width: 10rem;
+}

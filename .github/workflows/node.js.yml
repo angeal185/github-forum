@@ -5,10 +5,9 @@ on:
 #    - cron:  '* 3 * * *'
   issues:
     types: [opened, edited, closed, deleted]
-    
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:

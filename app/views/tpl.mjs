@@ -823,6 +823,30 @@ const tpl = {
     }
     return sect;
   },
+  user_card(obj){
+
+    return x('div', {class: 'col-12'},
+        x('div', {class: 'card mb-4'},
+          x('div', {class: 'card-body'},
+            x('div', {class: 'media'},
+              x('img', {
+                class: 'img-thumbnail mr-4 user-img',
+                src: obj.avatar_url || xdata.app.user_logo,
+                onerror(evt){
+                  evt.target.src = xdata.app.user_logo
+                }
+              }),
+              x('div', {class: 'media-body'},
+                x('h4', {class: 'mb-4'}, obj.login),
+                x('p', {class: 'user-txt'}, obj.bio || ''),
+                x('p', {class: 'user-txt'}, obj.location || ''),
+                x('p', {class: 'user-txt'}, obj.blog || '')
+              )
+            )
+          )
+        )
+      )
+  },
   show_more_cat(cat, items, router){
 
     let item = x('button',{
@@ -963,44 +987,6 @@ const tpl = {
 
     return item;
   },
-  cat_cloud(router){
-    let div = x('div', {class: 'list-group-item'}),
-    item = x('div', {class: 'list-group'},
-      x('div', {class: 'list-group-item active'}, 'Categories'),
-      div
-    ),
-    cats = xdata.app.forum.categories;
-
-    for (let i = 0; i < cats.length; i++) {
-      div.append(x('span', {
-          class: 'cat-min cp mb-2',
-          onclick(){
-            router.rout('/forum/category?ts='+ Date.now(), {id: cats[i]})
-          }
-        },cats[i]
-      ))
-    }
-    return item
-  },
-  tag_cloud(router){
-    let div = x('div', {class: 'list-group-item'}),
-    item = x('div', {class: 'list-group'},
-      x('div', {class: 'list-group-item active'}, 'Tag cloud'),
-      div
-    ),
-    tags = utils.shuffle(xdata.app.forum.tag_cloud).slice(0, xdata.app.forum.tag_cloud_len);
-
-    for (let i = 0; i < tags.length; i++) {
-      div.append(x('span', {
-          class: 'tag-min cp mb-2',
-          onclick(){
-            router.rout('/forum/tag?ts='+ Date.now(), {term: tags[i]})
-          }
-        },tags[i]
-      ))
-    }
-    return item
-  },
   news_item(router, res, obj){
     let date_arr = res.created_at.slice(0,-1).split('T')
 
@@ -1064,6 +1050,73 @@ const tpl = {
       )
     )
 
+  },
+  cat_cloud(router){
+    let div = x('div', {class: 'list-group-item'}),
+    item = x('div', {class: 'list-group'},
+      x('div', {class: 'list-group-item active'}, 'Categories'),
+      div
+    ),
+    cats = xdata.app.forum.categories;
+
+    for (let i = 0; i < cats.length; i++) {
+      div.append(x('span', {
+          class: 'cat-min cp mb-2',
+          onclick(){
+            router.rout('/forum/category?ts='+ Date.now(), {id: cats[i]})
+          }
+        },cats[i]
+      ))
+    }
+    return item
+  },
+  tag_cloud(router){
+    let div = x('div', {class: 'list-group-item'}),
+    item = x('div', {class: 'list-group'},
+      x('div', {class: 'list-group-item active'}, 'Tag cloud'),
+      div
+    ),
+    tags = utils.shuffle(xdata.app.forum.tag_cloud).slice(0, xdata.app.forum.tag_cloud_len);
+
+    for (let i = 0; i < tags.length; i++) {
+      div.append(x('span', {
+          class: 'tag-min cp mb-2',
+          onclick(){
+            router.rout('/forum/tag?ts='+ Date.now(), {term: tags[i]})
+          }
+        },tags[i]
+      ))
+    }
+    return item
+  },
+  moderators(router){
+    let div = x('div', {class: 'list-group-item'}),
+    item = x('div', {class: 'list-group'},
+      x('div', {class: 'list-group-item active'}, 'Moderators'),
+      div
+    ),
+    mods = xdata.app.moderators
+
+    for (let i = 0; i < mods.length; i++) {
+      div.append(x('div', {class: 'media'},
+        x('img', {
+          class: 'mr-3 min-img',
+          src: mods[i].img,
+          onerror(evt){
+            evt.target.src = xdata.app.user_logo
+          }
+        }),
+        x('div',{class: 'media-body'},
+          x('div', {
+            class: 'cp sh-95',
+            onclick(){
+              router.rout('/forum/user?q='+ mods[i].name, {term: mods[i].name})
+            }
+          }, mods[i].name)
+        )
+      ))
+    }
+    return item
   }
 }
 

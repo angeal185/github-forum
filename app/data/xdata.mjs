@@ -1,8 +1,10 @@
+import { routes } from './routes.mjs';
+
 const repo = 'angeal185/github-forum',
 news_repo = 'angeal185/github-forum-news',
 news_id = 142029577;
 
-const xdata = {
+const xdata = Object.assign({
   default:{
     version: '1.0.0', // don't delete me
     title: 'github forum',
@@ -112,9 +114,17 @@ const xdata = {
     forum_id: 142029577,
     user_logo: './app/img/user.png',
     user_data: 'https://api.github.com/user',
+    users_data: 'https://api.github.com/users/',
     code_base: 'https://github.com/angeal185/github-forum',
     new_token_base: 'https://github.com/settings/tokens/new',
     comment_per_page: 100,
+    moderators: [{
+      name: 'angeal185',
+      img: 'https://avatars3.githubusercontent.com/u/18084234?v=4'
+    },{
+      name: 'cloudanon',
+      img: 'https://avatars2.githubusercontent.com/u/68107105?v=4'
+    }],
     forum: {
       latest_issues_max: 5,
       max_tags: 3,
@@ -140,48 +150,7 @@ const xdata = {
       news_issue: 'https://api.github.com/repos/'+ news_repo +'/issues/{{issue}}/comments',
       issues: 'https://api.github.com/search/issues?q=+repo:'+ news_repo +'+type:issue+state:open+label:news&page={{page}}'
     }
-  },
-  base: {
-    nav: ['forum', 'news', 'about', 'contact', 'terms']
-  },
-  profile: {
-    items_a: {
-      name: 'Name',
-      email: 'Email',
-      url: 'URL',
-      created_at: 'Created',
-      updated_at: 'Updated',
-      disk_usage: 'Disk usage',
-      hireable: 'Hireable'
-    },
-    items_b: {
-      company: 'Company',
-      total_private_repos: 'Private repos',
-      public_repos: 'Public repos',
-      private_gists: 'Private gists',
-      public_gists: 'Public gists',
-      followers: 'Followers',
-      following: 'Following'
-    }
-  },
-  login: {
-    msg: 'portal page'
-  },
-  forum: {
-    msg: 'forum page'
-  },
-  news: {
-    msg: 'news page'
-  },
-  about: {
-    msg: 'about page'
-  },
-  contact: {
-    msg: 'contact page'
-  },
-  terms: {
-    msg: 'terms page'
   }
-}
+}, routes)
 
 export { xdata }

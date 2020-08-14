@@ -1,6 +1,6 @@
 {
   "baseurl": "https://angeal185.github.io/github-forum",
-  "feedurl": "https://api.github.com/repos/angeal185/github-forum/issues",
+  "feedurl": "https://api.github.com/repos/angeal185/github-forum-issues/issues",
   "newsurl": "https://api.github.com/repos/angeal185/github-forum-news/issues",
   "templates": {
     "forum": {

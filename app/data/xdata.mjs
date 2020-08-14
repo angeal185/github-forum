@@ -1,6 +1,6 @@
 import { routes } from './routes.mjs';
 
-const repo = 'angeal185/github-forum',
+const repo = 'angeal185/github-forum-issues',
 news_repo = 'angeal185/github-forum-news',
 news_id = 142029577;
 

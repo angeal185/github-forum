@@ -13,7 +13,10 @@ const tpl = {
           window.dispatchEvent(new Event("toggle-sidebar"));
         }
       }),
-      x('div', 'logo here')
+      x('img', {
+        class:'img-fluid logo-img',
+        src: './app/img/logo.png'
+      })
     ),
     nav_right = x('div', {class: 'nav-right col-6'}),
     nav_sb = x('div', {class: 'nav-sb d-lg-none'},
@@ -66,7 +69,7 @@ const tpl = {
               title: 'profile',
               src: ud.avatar_url,
               onerror(evt){
-                evt.target.src = xdata.app.user_logo
+                evt.target.src = xdata.app.user_logo;
               }
             }),
             x('small', {class: 'd-block'}, ud.login)
@@ -183,7 +186,7 @@ const tpl = {
               class: 'mr-3 cat-img',
               src: res.user.avatar_url,
               onerror(evt){
-                evt.target.src = xdata.app.user_logo
+                evt.target.src = xdata.app.user_logo;
               }
             }),
             x('div', {class: 'media-body'},
@@ -285,7 +288,7 @@ const tpl = {
               class: 'mr-3 cat-img',
               src: res.user.avatar_url,
               onerror(evt){
-                evt.target.src = xdata.app.user_logo
+                evt.target.src = xdata.app.user_logo;
               }
             }),
             x('div', {class: 'media-body'},
@@ -467,7 +470,7 @@ const tpl = {
               class: 'mr-3 cat-img',
               src: res.user.avatar_url,
               onerror(evt){
-                evt.target.src = xdata.app.user_logo
+                evt.target.src = xdata.app.user_logo;
               }
             }),
             x('div', {class: 'media-body'},
@@ -613,7 +616,7 @@ const tpl = {
                 class: 'mr-3 min-img',
                 src: res[i].user.avatar_url,
                 onerror(evt){
-                  evt.target.src = xdata.app.user_logo
+                  evt.target.src = xdata.app.user_logo;
                 }
               }),
               x('div', {class: 'media-body'},
@@ -884,7 +887,7 @@ const tpl = {
                 class: 'img-thumbnail mr-4 user-img',
                 src: obj.avatar_url || xdata.app.user_logo,
                 onerror(evt){
-                  evt.target.src = xdata.app.user_logo
+                  evt.target.src = xdata.app.user_logo;
                 }
               }),
               x('div', {class: 'media-body'},
@@ -1053,7 +1056,7 @@ const tpl = {
               class: 'mr-3 min-img',
               src: res.user.avatar_url,
               onerror(evt){
-                evt.target.src = xdata.app.user_logo
+                evt.target.src = xdata.app.user_logo;
               }
             }),
             x('div', {class: 'media-body'},
@@ -1154,7 +1157,7 @@ const tpl = {
           class: 'mr-3 min-img',
           src: mods[i].img,
           onerror(evt){
-            evt.target.src = xdata.app.user_logo
+            evt.target.src = xdata.app.user_logo;
           }
         }),
         x('div',{class: 'media-body'},

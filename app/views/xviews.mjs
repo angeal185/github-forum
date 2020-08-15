@@ -102,7 +102,7 @@ const xviews = Object.assign({
                 class: 'img-thumbnail mr-4 user-img',
                 src: obj.avatar_url,
                 onerror(evt){
-                  evt.target.src = xdata.app.user_logo
+                  evt.target.src = xdata.app.user_logo;
                 }
               }),
               x('div', {class: 'media-body'},

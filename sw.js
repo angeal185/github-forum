@@ -1,4 +1,7 @@
-let ORIGIN = 'https://angeal185.github.io/github-forum',
+let ORIGIN =
+'https://angeal185.github.io/github-forum',
+//'http://localhost:8000',
+DEV_MODE = true,
 CACHE_VERSION = 1,
 CURRENT_CACHES = {
   static: 'static-cache-v1'
@@ -34,8 +37,8 @@ CONTENT_TYPES = [
   'text/css',
   'text/html',
   'font/woff2'
-],
-DEV_MODE = false
+];
+
 
 for (let i = 0; i < STATIC_FILES.length; i++) {
   STATIC_FILES[i] = ORIGIN + STATIC_FILES[i]

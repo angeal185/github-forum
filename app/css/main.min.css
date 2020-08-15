@@ -121,6 +121,9 @@ body{
   transition: left .5s;
 }
 
+.logo-img{
+  height: 2rem;
+}
 .sb-body{
   height: calc(100vh - 4rem);
   overflow-y: scroll;

@@ -25,6 +25,12 @@ const xdata = Object.assign({
     },{
       name: 'msapplication-config',
       content: './app/browserconfig.xml'
+    },{
+      name: 'apple-mobile-web-app-title',
+      content: 'github-forum'
+    },{
+      name: 'application-name',
+      content: 'github-forum'
     }],
     styles:[{
       href: './app/css/bootstrap.min.css',
@@ -42,6 +48,14 @@ const xdata = Object.assign({
       type: 'application/atom+xml',
       title: "github-forum news feed",
       href: news_feed
+    },{
+      rel: 'apple-touch-icon',
+      href: './app/img/ico/apple-touch-icon.png',
+      sizes: '180x180'
+    },{
+      rel: 'mask-icon',
+      href: './app/img/ico/safari-pinned-tab.svg',
+      color: '#000000'
     }],
     js_head:[],
     js_body:[],

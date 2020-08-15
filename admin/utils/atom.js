@@ -9,7 +9,7 @@ let obj = {
     'User-Agent': 'googlebot'
   }
 },
-config = require('./config/atom');
+config = require('../config/atom');
 
 let utils = {
   atom_base(obj){
@@ -205,92 +205,96 @@ let utils = {
   }
 }
 
+function atom(){
+  https.get(config.feedurl, obj, function(res){
+    let str = ''
+    res.on('data', function(d){
+      str+=d
+    }).on('end', function(){
+      str = JSON.parse(str);
 
-https.get(config.feedurl, obj, function(res){
-  let str = ''
-  res.on('data', function(d){
-    str+=d
-  }).on('end', function(){
-    str = JSON.parse(str);
+      let arr = [],ttl, entry;
 
-    let arr = [],ttl, entry;
+      for (let i = 0; i < str.length; i++) {
 
-    for (let i = 0; i < str.length; i++) {
+        ttl = utils.sortTitle(str[i].title);
+        arr.push({
+          title: ttl[0],
+          updated: str[i].updated_at,
+          id: "urn:uuid:"+ utils.uuid(),
+          published: str[i].created_at,
+          author: {
+            name: str[i].user.login,
+            uri: str[i].user.url
+          },
+          category: {
+            term: ttl[1]
+          },
+          content: {
+            type: "text",
+            data: str[i].body
+          },
+          link: {
+            title: "link",
+            href: config.baseurl+ '/#/forum'
+          }
+        })
+      }
 
-      ttl = utils.sortTitle(str[i].title);
-      arr.push({
-        title: ttl[0],
-        updated: str[i].updated_at,
-        id: "urn:uuid:"+ utils.uuid(),
-        published: str[i].created_at,
-        author: {
-          name: str[i].user.login,
-          uri: str[i].user.url
-        },
-        category: {
-          term: ttl[1]
-        },
-        content: {
-          type: "text",
-          data: str[i].body
-        },
-        link: {
-          title: "link",
-          href: config.baseurl+ '/#/forum'
-        }
-      })
-    }
+      config.templates.forum.entries = arr;
 
-    config.templates.forum.entries = arr;
+      fs.writeFileSync('./atom/issues.atom', utils.atom_base(config.templates.forum))
+    });
 
-    fs.writeFileSync('./atom/issues.atom', utils.atom_base(config.templates.forum))
+  })
+  .on('error', function(e){
+    console.error(e);
   });
 
-})
-.on('error', function(e){
-  console.error(e);
-});
+  https.get(config.newsurl, obj, function(res){
+    let str = ''
+    res.on('data', function(d){
+      str+=d
+    }).on('end', function(){
+      str = JSON.parse(str);
 
-https.get(config.newsurl, obj, function(res){
-  let str = ''
-  res.on('data', function(d){
-    str+=d
-  }).on('end', function(){
-    str = JSON.parse(str);
+      let arr = [],ttl, entry;
 
-    let arr = [],ttl, entry;
+      for (let i = 0; i < str.length; i++) {
 
-    for (let i = 0; i < str.length; i++) {
+        arr.push({
+          title: str[i].title,
+          updated: str[i].updated_at,
+          id: "urn:uuid:"+ utils.uuid(),
+          published: str[i].created_at,
+          author: {
+            name: str[i].user.login,
+            uri: str[i].user.url
+          },
+          category: {
+            term: 'news'
+          },
+          content: {
+            type: "text",
+            data: str[i].body
+          },
+          link: {
+            title: "link",
+            href: config.baseurl+ '/#/news'
+          }
+        })
+      }
 
-      arr.push({
-        title: str[i].title,
-        updated: str[i].updated_at,
-        id: "urn:uuid:"+ utils.uuid(),
-        published: str[i].created_at,
-        author: {
-          name: str[i].user.login,
-          uri: str[i].user.url
-        },
-        category: {
-          term: 'news'
-        },
-        content: {
-          type: "text",
-          data: str[i].body
-        },
-        link: {
-          title: "link",
-          href: config.baseurl+ '/#/news'
-        }
-      })
-    }
+      config.templates.news.entries = arr;
 
-    config.templates.news.entries = arr;
+      fs.writeFileSync('./atom/news.atom', utils.atom_base(config.templates.news))
+    });
 
-    fs.writeFileSync('./atom/news.atom', utils.atom_base(config.templates.news))
+  })
+  .on('error', function(e){
+    console.error(e);
   });
 
-})
-.on('error', function(e){
-  console.error(e);
-});
+}
+
+module.exports = { atom }

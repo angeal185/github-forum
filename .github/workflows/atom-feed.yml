@@ -20,7 +20,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: node atomgen.js
+    - run: node ./main.js
     - run: |
           git config --global user.name angeal185
           git config --global user.email angeal185@users.noreply.github.com

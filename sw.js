@@ -81,11 +81,7 @@ if(!DEV_MODE){
               response.headers.has('content-type') &&
               CONTENT_TYPES.indexOf(response.headers.get('content-type')) !== -1
             ) {
-              console.log('cached: ')
               cache.put(event.request, response.clone());
-            } else {
-              console.log('not cached: ')
-              console.log(response)
             }
             return response;
           });

@@ -186,7 +186,7 @@ const xviews = Object.assign({
                 }
               }, xdata.app.new_token_base)),
               x('li', 'add a name for your access token in the Note input'),
-              x('li', 'The created access token must have permissions to read user profile and write issues/comments to repos'),
+              x('li', 'The created access token need only have permissions to read user profile and write issues/comments'),
               x('li', 'select the scopes read:user and public_repo'),
               x('li', 'click on the “Generate token” button'),
               x('li', 'Type or paste the created access token into the github-forum login access token input'),

@@ -554,7 +554,7 @@ const tpl = {
         x('div', {class: 'input-group-append'},btn)
       ),
       function(){
-        let optGroup = x('div', {class: 'mt-1 ml-1 fs-1'}),
+        let optGroup = x('div', {class: 'mt-1 ml-1 fs-1 fw-300'}),
         items = ['title', 'category', 'tag', 'author'];
         for (let i = 0; i < items.length; i++) {
           optGroup.append(x('div',{class: 'form-check form-check-inline'},
@@ -864,35 +864,6 @@ const tpl = {
 
 
     return item
-  },
-  //blog
-  sidebar_news(){
-
-  },
-  listgroup_news(){
-
-  },
-  listitem_news(){
-
-  },
-  //portal
-  listgroup_portal(items){
-    let arr = [],
-    item = x('div', {class: 'list-group'})
-
-    for (let e = 0; e < array.length; e++) {
-      // body...
-    }
-    for (let i = 0; i < items.length; i++) {
-      item.append(x('div', {
-          class: 'list-group-item',
-          onclick(){
-
-          }
-        }
-      ))
-    }
-
   },
   profile_data(items, obj){
     let sect = x('div', {class: 'col-lg-6'});

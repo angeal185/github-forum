@@ -1,4 +1,5 @@
-const CACHE_VERSION = 1,
+let ORIGIN = 'https://angeal185.github.io/github-forum',
+CACHE_VERSION = 1,
 CURRENT_CACHES = {
   static: 'static-cache-v1'
 },
@@ -35,6 +36,10 @@ CONTENT_TYPES = [
   'font/woff2'
 ],
 DEV_MODE = false
+
+for (let i = 0; i < STATIC_FILES.length; i++) {
+  STATIC_FILES[i] = ORIGIN + STATIC_FILES[i]
+}
 
 if(!DEV_MODE){
   self.addEventListener('install', function(event){

@@ -249,17 +249,23 @@ margin-top: 1rem;
   width: 100%;
   position: fixed;
   height: 30px;
-  background: rgba(197, 197, 197, 0.7);
+  background: rgb(18 120 250 / 80%);
+  color: white;
   bottom: 0;
   left: 0;
-      z-index: 999;
+  z-index: 999;
 }
 
 .bc{
-  line-height: 2;
-  margin-left: 30px;
+  line-height: 2.4;
+  margin-left: 1rem;
 }
 
+.b-lnks{
+  float: right;
+  line-height: 2.4;
+  margin-right: 1rem;
+}
 .sh-9, .sh-95 {
   transition: 1s ease
 }
@@ -336,7 +342,7 @@ margin-top: 1rem;
 
 .cat-min, .tag-min{
   margin: 0 .25rem;
-  padding: .1rem .2rem;
+  padding: 0 .3rem;
   border-radius: 4px;
   display: inline-block;
 }

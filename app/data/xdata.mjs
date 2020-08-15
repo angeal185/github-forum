@@ -3,7 +3,9 @@ import { jsonld } from './jsonld.mjs';
 
 const repo = 'angeal185/github-forum-issues',
 news_repo = 'angeal185/github-forum-news',
-news_id = 142029577;
+news_id = 142029577,
+issues_feed = 'https://angeal185.github.io/github-forum/atom/issues.atom',
+news_feed = 'https://angeal185.github.io/github-forum/atom/news.atom';
 
 const xdata = Object.assign({
   default:{
@@ -34,12 +36,12 @@ const xdata = Object.assign({
       rel: 'alternate',
       type: 'application/atom+xml',
       title: "github-forum issues feed",
-      href: './atom/issues.atom'
+      href: issues_feed
     },{
       rel: 'alternate',
       type: 'application/atom+xml',
       title: "github-forum news feed",
-      href: './atom/news.atom'
+      href: news_feed
     }],
     js_head:[],
     js_body:[],
@@ -101,6 +103,8 @@ const xdata = Object.assign({
     users_data: 'https://api.github.com/users/',
     code_base: 'https://github.com/angeal185/github-forum',
     new_token_base: 'https://github.com/settings/tokens/new',
+    issues_feed: issues_feed,
+    news_feed: news_feed,
     comment_per_page: 100,
     moderators: [{
       name: 'angeal185',

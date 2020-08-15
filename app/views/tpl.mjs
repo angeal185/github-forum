@@ -1168,6 +1168,17 @@ const tpl = {
       ))
     }
     return item
+  },
+  bnav_lnks(router){
+    return x('span', {class: 'b-lnks'},
+      x('span', {
+        class: 'icon-rss cp',
+        title: 'atom feeds',
+        onclick(){
+          router.rout('/atom', {})
+        }
+      })
+    )
   }
 }
 

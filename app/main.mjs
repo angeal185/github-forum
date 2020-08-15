@@ -88,6 +88,12 @@ router.on('/login', function(request, stream){
     if(err){return stream.renderErr();}
   })
 })
+.on('/atom', function(request, stream) {
+  stream.render('atom', request.data, function(err){
+    if(err){return stream.renderErr();}
+
+  })
+})
 .on('/error', function(request, stream) {
   stream.render('error', request.data, function(err){
     if(err){return console.error(err)}

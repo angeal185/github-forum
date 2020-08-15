@@ -42,7 +42,8 @@ const xviews = Object.assign({
         ),
         x('div',{class: 'b-nav'},
           toTop,
-          bc
+          bc,
+          tpl.bnav_lnks(router)
         )
       )
     )
@@ -503,6 +504,40 @@ const xviews = Object.assign({
     })
 
     return item
+  },
+  atom(stream, data){
+
+    let item = x('div', {class: 'row  text-center'},
+      x('div', {class: 'col-12 mb-4 mt-2'},
+        x('h2', 'Atom feeds')
+      )
+    ),
+    arr = ['issues','news'];
+
+    for (let i = 0; i < arr.length; i++) {
+      item.append(
+        x('div', {class: 'col-lg-6'},
+          x('div', {class:'card'},
+           x('div', {class:'card-body'},
+              x('h4', 'Github-forum '+ arr[i] +' feed'),
+              x('input', {
+                class: 'form-control text-center',
+                value: xdata.app[arr[i] +'_feed'],
+                readOnly: ''
+              }),
+              x('button', {
+                class: 'btn btn-outline-primary btn-sm mt-2',
+                onclick(){
+                  window.open(xdata.app[arr[i] +'_feed'])
+                }
+              }, 'View feed')
+            )
+          )
+        )
+      )
+    }
+
+    return item;
   },
   error(stream, data){
     return x('code', stream.js(data))

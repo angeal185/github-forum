@@ -4,25 +4,37 @@ CURRENT_CACHES = {
 },
 STATIC_FILES = [
   '/',
-  '/manifest.webmanifest',
+  '/app/manifest.webmanifest',
   '/app/defaults.mjs',
   '/app/main.mjs',
   '/app/data/xdata.mjs',
+  '/app/data/jsonld.mjs',
+  '/app/data/routes.mjs',
   '/app/views/xviews.mjs',
+  '/app/views/routes.mjs',
+  '/app/views/tpl.mjs',
   '/app/modules/jsnode.mjs',
   '/app/modules/router.mjs',
   '/app/modules/stream.mjs',
+  '/app/modules/utils.mjs',
+  '/app/modules/xidb.mjs',
   '/app/modules/xscript.mjs',
   '/app/modules/xutils.mjs',
   '/app/css/bootstrap.min.css',
-  '/app/css/main.min.css'
+  '/app/css/main.min.css',
+  '/app/fonts/roboto-regular.woff2',
+  '/app/fonts/roboto-bold.woff2',
+  '/app/fonts/roboto-light.woff2',
+  '/app/fonts/roboto-medium.woff2',
+  '/app/fonts/ico.woff2'
 ],
 CONTENT_TYPES = [
   'application/javascript',
   'text/css',
-  'text/html'
+  'text/html',
+  'font/woff2'
 ],
-DEV_MODE = true
+DEV_MODE = false
 
 if(!DEV_MODE){
   self.addEventListener('install', function(event){
@@ -50,25 +62,26 @@ if(!DEV_MODE){
     );
   });
 
+
+
   self.addEventListener('fetch', function(event) {
 
     event.respondWith(
       caches.open(CURRENT_CACHES.static).then(function(cache) {
         return cache.match(event.request).then(function(response) {
-          if (response) {
-            return response;
-          }
-
+          if(response){return response;}
           return fetch(event.request.clone()).then(function(response) {
-
             if (
               response.status < 400 &&
               response.headers.has('content-type') &&
               CONTENT_TYPES.indexOf(response.headers.get('content-type')) !== -1
             ) {
+              console.log('cached: ')
               cache.put(event.request, response.clone());
+            } else {
+              console.log('not cached: ')
+              console.log(response)
             }
-
             return response;
           });
         }).catch(function(error) {

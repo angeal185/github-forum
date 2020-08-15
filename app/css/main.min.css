@@ -192,6 +192,7 @@ margin-top: 1rem;
 
 .list-group{
   margin-bottom: 2rem;
+  border-radius: 2px;
 }
 
 .login-check {

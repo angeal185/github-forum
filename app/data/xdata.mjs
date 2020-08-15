@@ -1,4 +1,5 @@
 import { routes } from './routes.mjs';
+import { jsonld } from './jsonld.mjs';
 
 const repo = 'angeal185/github-forum-issues',
 news_repo = 'angeal185/github-forum-news',
@@ -13,12 +14,15 @@ const xdata = Object.assign({
     error: '/error',
     base_path: '/forum',
     delete_meta: false,
-    webmanifest: './manifest.webmanifest',
+    webmanifest: './app/manifest.webmanifest',
     base_script_name: 'main',
     csp: "default-src 'self';img-src *;object-src 'none';frame-src 'none';block-all-mixed-content;upgrade-insecure-requests;connect-src https://api.github.com",
     meta: [{
       name: 'viewport',
       content: 'width=device-width, initial-scale=1'
+    },{
+      name: 'msapplication-config',
+      content: './app/browserconfig.xml'
     }],
     styles:[{
       href: './app/css/bootstrap.min.css',
@@ -39,30 +43,7 @@ const xdata = Object.assign({
     }],
     js_head:[],
     js_body:[],
-    jsonLD: [{
-      "@context":"http://schema.org",
-      "@type":"Code",
-      "name":"github-forum",
-      "description":"",
-      "image":"https://example.com/logo.png",
-      "thumbnailUrl":"https://example.com/logo.png",
-      "author":{
-        "@type":"Person",
-        "name":"Ben eaves"
-      },
-      "creator":{
-        "@type":"Person",
-        "name":"Ben eaves"
-      },
-      "creativeWorkStatus": "published",
-      "url":"https://example.com",
-      "encoding":{
-        "encodingFormat":"application/javascript"
-      },
-      "keywords":"",
-      "license":"MIT",
-      "version":"v1.0.0"
-    }],
+    jsonLD: jsonld,
     strip_unsafe: ['eval'],
     storage: {
       max_age: 9999999999,

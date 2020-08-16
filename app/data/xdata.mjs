@@ -1,27 +1,30 @@
 import { routes } from './routes.mjs';
 import { jsonld } from './jsonld.mjs';
 
+// defaults
 const repo = 'angeal185/github-forum-issues',
 news_repo = 'angeal185/github-forum-news',
 report_repo = 'angeal185/github-forum-report',
 report_repo_issue = '1',
 news_id = 142029577,
-issues_feed = 'https://angeal185.github.io/github-forum/atom/issues.atom',
-news_feed = 'https://angeal185.github.io/github-forum/atom/news.atom';
+origin = 'https://angeal185.github.io/github-forum',
+api = origin +'/api',
+issues_feed = origin +'/atom/issues.atom',
+news_feed = origin +'/atom/news.atom';
 
 const xdata = Object.assign({
   default:{
     version: '1.0.0', // don't delete me
     title: 'github forum',
     logo: './app/img/logo.png',
-    origin: 'http://localhost:8000',
+    origin: origin,
     params: true,
     error: '/error',
     base_path: '/forum',
     delete_meta: false,
     webmanifest: './app/manifest.webmanifest',
     base_script_name: 'main',
-    csp: "default-src 'self';img-src *;object-src 'none';frame-src 'none';block-all-mixed-content;upgrade-insecure-requests;connect-src https://api.github.com",
+    csp: "default-src 'self';img-src *;object-src 'none';frame-src 'none';block-all-mixed-content;upgrade-insecure-requests;connect-src https://api.github.com "+ origin,
     meta: [{
       name: 'viewport',
       content: 'width=device-width, initial-scale=1'
@@ -73,6 +76,16 @@ const xdata = Object.assign({
         type: 'text/plain',
         charset: 'utf-8'
       },
+      json: {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Sec-Fetch-Dest': 'object',
+          'Sec-Fetch-mode': 'cors',
+          'Sec-Fetch-Site': 'cross-site'
+        }
+      },
       fetch: {
         method: 'GET',
         headers: {
@@ -112,7 +125,7 @@ const xdata = Object.assign({
     }
   },
   app: {
-    api: 'https://api.github.com/',
+    api: api,
     search: 'https://api.github.com/search/',
     forum_id: 142029577,
     user_logo: './app/img/user.png',

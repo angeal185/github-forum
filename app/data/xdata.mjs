@@ -24,7 +24,7 @@ const xdata = Object.assign({
     delete_meta: false,
     webmanifest: './app/manifest.webmanifest',
     base_script_name: 'main',
-    csp: "default-src 'self';img-src *;object-src 'none';frame-src 'none';block-all-mixed-content;upgrade-insecure-requests;connect-src https://api.github.com "+ origin,
+    csp: "default-src 'self';img-src *;object-src 'none';frame-src 'none';block-all-mixed-content;upgrade-insecure-requests;connect-src https://api.github.com https://angeal185.github.io",
     meta: [{
       name: 'viewport',
       content: 'width=device-width, initial-scale=1'
@@ -79,8 +79,6 @@ const xdata = Object.assign({
       json: {
         method: 'GET',
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
           'Sec-Fetch-Dest': 'object',
           'Sec-Fetch-mode': 'cors',
           'Sec-Fetch-Site': 'cross-site'

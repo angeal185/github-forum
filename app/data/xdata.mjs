@@ -8,6 +8,8 @@ report_repo = 'angeal185/github-forum-report',
 report_repo_issue = '1',
 news_id = 142029577,
 origin = 'https://angeal185.github.io/github-forum',
+code_base = 'https://github.com/angeal185/github-forum',
+github_api = 'https://api.github.com',
 api = origin +'/api',
 issues_feed = origin +'/atom/issues.atom',
 news_feed = origin +'/atom/news.atom';
@@ -24,7 +26,7 @@ const xdata = Object.assign({
     delete_meta: false,
     webmanifest: './app/manifest.webmanifest',
     base_script_name: 'main',
-    csp: "default-src 'self';img-src *;object-src 'none';frame-src 'none';block-all-mixed-content;upgrade-insecure-requests;connect-src https://api.github.com https://angeal185.github.io",
+    csp: "default-src 'self';img-src *;object-src 'none';frame-src 'none';block-all-mixed-content;upgrade-insecure-requests;connect-src https://angeal185.github.io "+ github_api,
     meta: [{
       name: 'viewport',
       content: 'width=device-width, initial-scale=1'
@@ -119,28 +121,21 @@ const xdata = Object.assign({
       version: 1,
       title: "db",
       objects: ["cache"],
-      cache_maxage: 1000 * 60 * 1
+      cache_maxage: 60000
     }
   },
   app: {
     api: api,
-    search: 'https://api.github.com/search/',
+    search: github_api +'/search/',
     forum_id: 142029577,
     user_logo: './app/img/user.png',
-    user_data: 'https://api.github.com/user',
-    users_data: 'https://api.github.com/users/',
-    code_base: 'https://github.com/angeal185/github-forum',
-    new_token_base: 'https://github.com/settings/tokens/new',
+    user_data: github_api +'/user',
+    users_data: github_api+ '/users/',
+    code_base: code_base,
+    new_token_base: github_api +'/settings/tokens/new',
     issues_feed: issues_feed,
     news_feed: news_feed,
     comment_per_page: 100,
-    moderators: [{
-      name: 'angeal185',
-      img: 'https://avatars3.githubusercontent.com/u/18084234?v=4'
-    },{
-      name: 'cloudanon',
-      img: 'https://avatars2.githubusercontent.com/u/68107105?v=4'
-    }],
     forum: {
       latest_issues_max: 3,
       max_tags: 3,
@@ -149,24 +144,24 @@ const xdata = Object.assign({
       max_issue_title_length: 32,
       max_comment_length: 500,
       issues_per_page: 100, // don't change me yet
-      base_url: 'https://api.github.com/'+ repo +'/repos/issues',
+      base_url: github_api +'/'+ repo +'/repos/issues',
       categories: ['cat1', 'cat2', 'cat3'],
       tag_cloud: ['tag1', 'tag2', 'tag3', 'tag4', 'tag5'],
       tag_cloud_len: 20,
-      cat_search: 'https://api.github.com/search/issues?q=[cat:{{category}}]in:title+repo:'+ repo +'+type:issue+state:open&page={{page}}',
-      search: 'https://api.github.com/search/issues?q={{search}}in:title+repo:'+ repo +'+type:issue+state:open&page={{page}}',
-      cat_issue: 'https://api.github.com/repos/'+ repo +'/issues/{{issue}}/comments?page={{page}}',
-      latest: 'https://api.github.com/repos/'+ repo +'/issues?sort=created&state=open&per_page=30',
-      popular: 'https://api.github.com/repos/'+ repo +'/issues?sort=comments&state=open&per_page=30',
-      create_issue: 'https://api.github.com/repos/'+ repo +'/issues',
-      create_comment: 'https://api.github.com/repos/'+ repo +'/issues/{{issue}}/comments',
-      create_report: 'https://api.github.com/repos/'+ report_repo +'/issues/'+ report_repo_issue +'/comments',
-      user_issues: 'https://api.github.com/search/issues?q=[catin:title+repo:'+ repo +'+type:issue+state:open+{{type}}:{{user}}',
+      cat_search: github_api +'/search/issues?q=[cat:{{category}}]in:title+repo:'+ repo +'+type:issue+state:open&page={{page}}',
+      search: github_api +'/search/issues?q={{search}}in:title+repo:'+ repo +'+type:issue+state:open&page={{page}}',
+      cat_issue: github_api +'/repos/'+ repo +'/issues/{{issue}}/comments?page={{page}}',
+      latest: github_api +'/repos/'+ repo +'/issues?sort=created&state=open&per_page=30',
+      popular: github_api +'/repos/'+ repo +'/issues?sort=comments&state=open&per_page=30',
+      create_issue: github_api +'/repos/'+ repo +'/issues',
+      create_comment: github_api +'/repos/'+ repo +'/issues/{{issue}}/comments',
+      create_report: github_api +'/repos/'+ report_repo +'/issues/'+ report_repo_issue +'/comments',
+      user_issues: github_api +'/search/issues?q=[catin:title+repo:'+ repo +'+type:issue+state:open+{{type}}:{{user}}',
     },
     news: {
-      base_url: 'https://api.github.com/'+ news_repo +'/repos/issues',
-      news_issue: 'https://api.github.com/repos/'+ news_repo +'/issues/{{issue}}/comments',
-      issues: 'https://api.github.com/search/issues?q=+repo:'+ news_repo +'+type:issue+state:open+label:news&page={{page}}'
+      base_url: github_api +'/'+ news_repo +'/repos/issues',
+      news_issue: github_api +'/repos/'+ news_repo +'/issues/{{issue}}/comments',
+      issues: github_api +'/search/issues?q=+repo:'+ news_repo +'+type:issue+state:open+label:news&page={{page}}'
     }
   }
 }, routes)

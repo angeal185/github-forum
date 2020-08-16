@@ -1162,27 +1162,30 @@ const tpl = {
     item = x('div', {class: 'list-group d-none d-lg-block'},
       x('div', {class: 'list-group-item active'}, 'Moderators'),
       div
-    ),
-    mods = xdata.app.moderators
+    )
 
-    for (let i = 0; i < mods.length; i++) {
-      div.append(x('div', {class: 'media'},
-        x('img', {
-          class: 'mr-3 min-img',
-          src: mods[i].img,
-          onerror(evt){
-            evt.target.src = xdata.app.user_logo;
-          }
-        }),
-        x('div',{class: 'media-body'},
-          x('div', {
-            class: 'cp sh-95',
-            onclick(){
-              router.rout('/forum/user?q='+ mods[i].name, {term: mods[i].name})
+    utils.get(xdata.app.api +'/moderators.json', xdata.default.stream.json, function(err,mods){
+      if(err){return console.error(err)}
+
+      for (let i = 0; i < mods.length; i++) {
+        div.append(x('div', {class: 'media'},
+          x('img', {
+            class: 'mr-3 min-img',
+            src: mods[i].img,
+            onerror(evt){
+              evt.target.src = xdata.app.user_logo;
             }
-          }, mods[i].name)
-        )
-      ))
+          }),
+          x('div',{class: 'media-body'},
+            x('div', {
+              class: 'cp sh-95',
+              onclick(){
+                router.rout('/forum/user?q='+ mods[i].name, {term: mods[i].name})
+              }
+            }, mods[i].name)
+          )
+        ))
+      })
     }
     return item
   },

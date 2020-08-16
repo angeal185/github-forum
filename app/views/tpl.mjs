@@ -1185,8 +1185,9 @@ const tpl = {
             }, mods[i].name)
           )
         ))
-      })
-    }
+
+      }
+    })
     return item
   },
   bnav_lnks(router){

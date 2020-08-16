@@ -88,6 +88,7 @@
 .icon-moon:before { content: '\e82e'; } /* '' */
 .icon-sun:before { content: '\e82f'; } /* '' */
 .icon-search:before { content: '\e844'; } /* '' */
+.icon-crosshairs:before { content: '\e845'; } /* '' */
 
 body{
   padding-top: 4rem;

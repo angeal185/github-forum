@@ -3,6 +3,8 @@ import { jsonld } from './jsonld.mjs';
 
 const repo = 'angeal185/github-forum-issues',
 news_repo = 'angeal185/github-forum-news',
+report_repo = 'angeal185/github-forum-report',
+report_repo_issue = '1',
 news_id = 142029577,
 issues_feed = 'https://angeal185.github.io/github-forum/atom/issues.atom',
 news_feed = 'https://angeal185.github.io/github-forum/atom/news.atom';
@@ -11,6 +13,7 @@ const xdata = Object.assign({
   default:{
     version: '1.0.0', // don't delete me
     title: 'github forum',
+    logo: './app/img/logo.png',
     origin: 'http://localhost:8000',
     params: true,
     error: '/error',
@@ -138,7 +141,7 @@ const xdata = Object.assign({
       base_url: 'https://api.github.com/'+ repo +'/repos/issues',
       categories: ['cat1', 'cat2', 'cat3'],
       tag_cloud: ['tag1', 'tag2', 'tag3', 'tag4', 'tag5'],
-      tag_cloud_len: 12,
+      tag_cloud_len: 20,
       cat_search: 'https://api.github.com/search/issues?q=[cat:{{category}}]in:title+repo:'+ repo +'+type:issue+state:open&page={{page}}',
       search: 'https://api.github.com/search/issues?q={{search}}in:title+repo:'+ repo +'+type:issue+state:open&page={{page}}',
       cat_issue: 'https://api.github.com/repos/'+ repo +'/issues/{{issue}}/comments?page={{page}}',
@@ -146,6 +149,7 @@ const xdata = Object.assign({
       popular: 'https://api.github.com/repos/'+ repo +'/issues?sort=comments&state=open&per_page=30',
       create_issue: 'https://api.github.com/repos/'+ repo +'/issues',
       create_comment: 'https://api.github.com/repos/'+ repo +'/issues/{{issue}}/comments',
+      create_report: 'https://api.github.com/repos/'+ report_repo +'/issues/'+ report_repo_issue +'/comments',
       user_issues: 'https://api.github.com/search/issues?q=[catin:title+repo:'+ repo +'+type:issue+state:open+{{type}}:{{user}}',
     },
     news: {

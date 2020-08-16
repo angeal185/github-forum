@@ -14,8 +14,8 @@ const tpl = {
         }
       }),
       x('img', {
-        class:'img-fluid logo-img',
-        src: './app/img/logo.png'
+        class:'img-fluid logo-img sh-95',
+        src: xdata.default.logo
       })
     ),
     nav_right = x('div', {class: 'nav-right col-6'}),
@@ -445,7 +445,14 @@ const tpl = {
                   evt.target.textContent = (parseInt(evt.target.textContent) + 1)
                 })
               }
-            }, res.reactions['-1'])
+            }, res.reactions['-1']),
+            x('span', {
+              class: 'icon-crosshairs cat-ico',
+              title: 'report this user',
+              onclick(evt){
+                window.dispatchEvent(new CustomEvent("report-user",{detail: res}))
+              }
+            })
           )
         )
       )
@@ -512,7 +519,14 @@ const tpl = {
                   evt.target.textContent = (parseInt(evt.target.textContent) + 1)
                 })
               }
-            }, res.reactions['-1'])
+            }, res.reactions['-1']),
+            x('span', {
+              class: 'icon-crosshairs cat-ico',
+              title: 'report this user',
+              onclick(evt){
+                window.dispatchEvent(new CustomEvent("report-user",{detail: res}))
+              }
+            })
           )
         )
       )
@@ -1182,6 +1196,100 @@ const tpl = {
         }
       })
     )
+  },
+  report(){
+    let obj = {},
+    user = x('span'),
+    ta = x('textarea', {
+      class: 'form-control',
+      readOnly: '',
+      rows: 4
+    }),
+    rp = x('textarea', {
+      class: 'form-control',
+      rows: 4,
+      onkeyup(evt){
+        let txt = evt.target.value;
+        if(txt.length > 200){
+          txt = txt.slice(0,200);
+          evt.target.value = txt;
+        }
+        obj.report_reason = txt;
+      }
+    })
+
+    let mdl = x('div', {class:'modal'},
+      x('div', {class:'modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg'},
+        x('div', {class:'modal-content'},
+          x('div', {class:'modal-header'},
+            x('h5', {class: 'modal-title'}, 'Report a user')
+          ),
+          x('div', {class:'modal-body'},
+            x('div', {class:'form-group mb-2'},
+              x('label', 'this action will report user ', user, ' for the following'),
+              ta
+            ),
+            x('div', {class:'form-group mb-2'},
+              x('label', 'please state your reason'),
+              rp
+            )
+          ),
+          x('div', {class:'modal-footer'},
+            x('button', {
+              class: 'btn btn-sm btn-outline-primary',
+              onclick(){
+
+                let tk = JSON.parse(sessionStorage.getItem('tk')),
+                data;
+
+                if(!tk) {
+                  return utils.toast('danger', 'This action requires you to login');
+                }
+
+                if(!obj || !obj.report_reason || obj.report_reason.length < 3 || !obj.report_data){
+                  return utils.toast('danger', 'invalid input data');
+                }
+
+                obj = JSON.stringify(obj);
+                data = Object.assign({}, xdata.default.stream.post);
+                data.headers['Authorization'] = 'token '+ tk;
+                data.body = JSON.stringify({body:obj});
+                utils.get(xdata.app.forum.create_report, data, function(err,res){
+                  if(err){
+                    utils.toast('danger', 'report user failed');
+                    return console.error(err)
+                  }
+                  utils.toast('success', 'user reported');
+                  mdl.classList.remove('show')
+                })
+
+              }
+            }, 'Submit'),
+            x('button', {
+              class: 'btn btn-sm btn-outline-primary',
+              onclick(){
+                mdl.classList.remove('show')
+              }
+            }, 'Cancel')
+          )
+        )
+      )
+    )
+
+    window.addEventListener('report-user', function(evt){
+      evt = evt.detail;
+      obj = {};
+      obj.report_data = JSON.stringify({
+        user: evt.user.login,
+        url: evt.url
+      }) || null;
+      obj.report_reason = '';
+      user.textContent = evt.user.login;
+      ta.textContent = evt.body;
+      mdl.classList.add('show');
+    })
+
+    return mdl
   }
 }
 

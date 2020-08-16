@@ -40,6 +40,7 @@ const xviews = Object.assign({
           ),
           app_main
         ),
+        tpl.report(),
         x('div',{class: 'b-nav'},
           toTop,
           bc,

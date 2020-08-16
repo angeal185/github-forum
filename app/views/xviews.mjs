@@ -294,12 +294,14 @@ const xviews = Object.assign({
     return item;
   },
   forum(stream, data){
-    let item = x('div'),
-    cats = xdata.app.forum.categories;
+    let item = x('div');
 
-    for (let i = 0; i < cats.length; i++) {
-      utils.getCat(cats[i], item, router, 'listgroup_forum', '1');
-    }
+    utils.get(xdata.app.api +'/categories.json', xdata.default.stream.json, function(err,cats){
+      if(err){return console.error(err)}
+      for (let i = 0; i < cats.length; i++) {
+        utils.getCat(cats[i], item, router, 'listgroup_forum', '1');
+      }
+    })
 
     return item;
   },

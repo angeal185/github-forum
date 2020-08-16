@@ -145,8 +145,6 @@ const xdata = Object.assign({
       max_comment_length: 500,
       issues_per_page: 100, // don't change me yet
       base_url: github_api +'/'+ repo +'/repos/issues',
-      categories: ['cat1', 'cat2', 'cat3'],
-      tag_cloud: ['tag1', 'tag2', 'tag3', 'tag4', 'tag5'],
       tag_cloud_len: 20,
       cat_search: github_api +'/search/issues?q=[cat:{{category}}]in:title+repo:'+ repo +'+type:issue+state:open&page={{page}}',
       search: github_api +'/search/issues?q={{search}}in:title+repo:'+ repo +'+type:issue+state:open&page={{page}}',

@@ -1124,18 +1124,21 @@ const tpl = {
     item = x('div', {class: 'list-group d-none d-lg-block'},
       x('div', {class: 'list-group-item active'}, 'Categories'),
       div
-    ),
-    cats = xdata.app.forum.categories;
+    )
 
-    for (let i = 0; i < cats.length; i++) {
-      div.append(x('span', {
-          class: 'cat-min cp mb-2',
-          onclick(){
-            router.rout('/forum/category?ts='+ Date.now(), {id: cats[i]})
-          }
-        },cats[i]
-      ))
-    }
+    utils.get(xdata.app.api +'/categories.json', xdata.default.stream.json, function(err,cats){
+      if(err){return console.error(err)}
+      for (let i = 0; i < cats.length; i++) {
+        div.append(x('span', {
+            class: 'cat-min cp mb-2',
+            onclick(){
+              router.rout('/forum/category?ts='+ Date.now(), {id: cats[i]})
+            }
+          },cats[i]
+        ))
+      }
+    })
+
     return item
   },
   tag_cloud(router){
@@ -1143,18 +1146,22 @@ const tpl = {
     item = x('div', {class: 'list-group d-none d-lg-block'},
       x('div', {class: 'list-group-item active'}, 'Tag cloud'),
       div
-    ),
-    tags = utils.shuffle(xdata.app.forum.tag_cloud).slice(0, xdata.app.forum.tag_cloud_len);
+    )
 
-    for (let i = 0; i < tags.length; i++) {
-      div.append(x('span', {
-          class: 'tag-min cp mb-2',
-          onclick(){
-            router.rout('/forum/tag?ts='+ Date.now(), {term: tags[i]})
-          }
-        },tags[i]
-      ))
-    }
+    utils.get(xdata.app.api +'/tags.json', xdata.default.stream.json, function(err,tags){
+      if(err){return console.error(err)}
+      tags = tags = utils.shuffle(tags).slice(0, xdata.app.forum.tag_cloud_len)
+      for (let i = 0; i < tags.length; i++) {
+        div.append(x('span', {
+            class: 'tag-min cp mb-2',
+            onclick(){
+              router.rout('/forum/tag?ts='+ Date.now(), {term: tags[i]})
+            }
+          },tags[i]
+        ))
+      }
+    })
+    
     return item
   },
   moderators(router){

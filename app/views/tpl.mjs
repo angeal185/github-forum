@@ -166,7 +166,7 @@ const tpl = {
   },
   listgroup_forum_item(cat, res, router){
 
-    if(!res.user.avatar_url || res.user.avatar_url === ''){
+    if(!res.user.avatar_url || !/^https?:\/\//.test(res.user.avatar_url)){
       res.user.avatar_url = xdata.app.user_logo;
     }
 
